@@ -1,22 +1,24 @@
 # test_problem_A_no_pytest.py
 
 from problems.problem_A import problem_A
+from problems.problem_D import decimal_to_binary
 from typing import Any, Callable, Optional
 
 
 def run_problem_A_tests() -> bool:
     failures = 0
+    failed_tests = []
 
     def section(title: str) -> None:
-        print(f"\n[Problem_A] {title}")
+        pass
 
     def ok(msg: str) -> None:
-        print(f"  ✅ {msg}")
+        pass
 
     def fail(msg: str) -> None:
         nonlocal failures
         failures += 1
-        print(f"  ❌ {msg}")
+        failed_tests.append(msg)
 
     def assert_true(cond: bool, msg: str) -> None:
         if cond:
@@ -86,6 +88,18 @@ def run_problem_A_tests() -> bool:
                             f'{label}: grade_distribution["{g}"] is non-negative int',
                         )
 
+    def finalize() -> bool:
+        section("Summary")
+        if failures == 0:
+            print("\u2705 All Problem_A tests passed.")
+            return True
+        else:
+            print(f"\u274c {failures} Problem_A test(s) failed.")
+            print("Failed tests:")
+            for msg in failed_tests:
+                print(f" - {msg}")
+            return False
+
     # ============================================================
     # 1) Happy path
     # ============================================================
@@ -100,6 +114,9 @@ def run_problem_A_tests() -> bool:
     ]
 
     out = safe_call("Happy path call", lambda: problem_A(records))
+    if out is None:
+        fail("Happy path call: returned None")
+        return finalize()
     assert_summary_shape(out, "Happy path")
 
     if isinstance(out, dict):
@@ -132,6 +149,9 @@ def run_problem_A_tests() -> bool:
     ]
 
     out = safe_call("Rounding call", lambda: problem_A(records))
+    if out is None:
+        fail("Rounding call: returned None")
+        return finalize()
     assert_summary_shape(out, "Rounding")
 
     if isinstance(out, dict):
@@ -151,6 +171,9 @@ def run_problem_A_tests() -> bool:
     ]
 
     out = safe_call("Boundaries call", lambda: problem_A(records))
+    if out is None:
+        fail("Boundaries call: returned None")
+        return finalize()
     assert_summary_shape(out, "Boundaries")
 
     if isinstance(out, dict):
@@ -171,6 +194,9 @@ def run_problem_A_tests() -> bool:
     )
 
     out = safe_call("Iterable call", lambda: problem_A(records))
+    if out is None:
+        fail("Iterable call: returned None")
+        return finalize()
     assert_summary_shape(out, "Iterable")
 
     if isinstance(out, dict):
@@ -188,6 +214,9 @@ def run_problem_A_tests() -> bool:
         {"name": "C", "score": 10, "weight": 1},
     ]
     out = safe_call("Tie call", lambda: problem_A(records))
+    if out is None:
+        fail("Tie call: returned None")
+        return finalize()
     assert_summary_shape(out, "Tie")
 
     if isinstance(out, dict):
@@ -222,13 +251,7 @@ def run_problem_A_tests() -> bool:
     # ============================================================
     # Summary
     # ============================================================
-    section("Summary")
-    if failures == 0:
-        print("✅ All Problem_A tests passed.")
-        return True
-    else:
-        print(f"❌ {failures} Problem_A test(s) failed.")
-        return False
+    return finalize()
 
 
 if __name__ == "__main__":
