@@ -48,7 +48,7 @@ class TestSudokuPuzzleValidator(unittest.TestCase):
         ]
 
         validator = SudokuPuzzleValidator(grid)
-        self.assertFalse(validator.validate_rows())
+        self.assertIs(validator.validate_rows(), False)
 
     def test_validate_rows_valid_scattered(self):
         grid = [
@@ -80,7 +80,7 @@ class TestSudokuPuzzleValidator(unittest.TestCase):
         ]
 
         validator = SudokuPuzzleValidator(grid)
-        self.assertFalse(validator.validate_rows())
+        self.assertIs(validator.validate_rows(), False)
 
     def test_validate_cols_empty_grid(self):
         grid = [
@@ -128,7 +128,7 @@ class TestSudokuPuzzleValidator(unittest.TestCase):
         ]
 
         validator = SudokuPuzzleValidator(grid)
-        self.assertFalse(validator.validate_cols())
+        self.assertIs(validator.validate_cols(), False)
 
     def test_validate_cols_valid_scattered(self):
         grid = [
@@ -160,7 +160,7 @@ class TestSudokuPuzzleValidator(unittest.TestCase):
         ]
 
         validator = SudokuPuzzleValidator(grid)
-        self.assertFalse(validator.validate_cols())
+        self.assertIs(validator.validate_cols(), False)
 
     def test_validate_boxes(self):
         grid = [
@@ -208,7 +208,7 @@ class TestSudokuPuzzleValidator(unittest.TestCase):
         ]
 
         validator = SudokuPuzzleValidator(grid)
-        self.assertFalse(validator.validate_boxes())
+        self.assertIs(validator.validate_boxes(), False)
 
     def test_validate_boxes_valid_scattered(self):
         grid = [
@@ -240,4 +240,4 @@ class TestSudokuPuzzleValidator(unittest.TestCase):
         ]
 
         validator = SudokuPuzzleValidator(grid)
-        self.assertFalse(validator.validate_boxes())
+        self.assertIs(validator.validate_boxes(), False)
