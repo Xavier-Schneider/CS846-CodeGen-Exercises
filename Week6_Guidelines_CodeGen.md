@@ -2,8 +2,15 @@
 
 **Authors:** Xavier Schneider, Greg French, Max Ku  
 **Readings Assigned:**  
-- [Primary reading 1]  
-- [Primary reading 2] ...
+- Leveraging Print Debugging To Improve Code Generation In Large Language Models  
+- LLM-Based Test-Driven Interactive Code Generation: User Study and Empirical Evaluation
+- Self-Collaboration Code Generation via ChatGPT
+- SOEN-101: Code Generation by Emulating Software Process Models Using LLM Agents
+- Self-Organized Agents: A LLM Multi-Agent Framework
+- Empowering Agile-Based Generative Software Development through Human-AI Teamwork
+- Guidelines to Prompt Large Language Models for Code Generation: An Empirical Characterization
+- How AI-assisted coding will change software engineering: hard truths
+- OpenSpec: A Spec-Driven Workflow for AI Coding Assistants
 
 ## 1. Guidelines
 
