@@ -9,9 +9,6 @@
 #   2) Parse it into an internal mapping
 #   3) Return a canonical, normalized INI string
 #
-# The goal is similar difficulty to a Sudoku validator:
-# deterministic rules, strong edge cases, and clear errors.
-#
 # ------------------------------------------------------------
 # Input
 # ------------------------------------------------------------
