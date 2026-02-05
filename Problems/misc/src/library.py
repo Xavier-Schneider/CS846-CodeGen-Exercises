@@ -1,4 +1,5 @@
 # examstats.py
+# Import this file with: from problems.misc.src import library as examlib
 
 from __future__ import annotations
 
@@ -19,7 +20,7 @@ def _to_record_list(records: Iterable[Mapping[str, Any]]) -> List[Dict[str, Any]
         raise InvalidRecordError("records must be an iterable of dict-like objects") from e
 
 
-def _validate_records(records: Iterable[Mapping[str, Any]]) -> List[Dict[str, Any]]:
+def validate_records(records: Iterable[Mapping[str, Any]]) -> List[Dict[str, Any]]:
     recs = _to_record_list(records)
     if len(recs) == 0:
         raise InvalidRecordError("record list cannot be empty")
@@ -56,14 +57,14 @@ def _validate_records(records: Iterable[Mapping[str, Any]]) -> List[Dict[str, An
 
 
 def weighted_average(records: Iterable[Mapping[str, Any]]) -> float:
-    recs = _validate_records(records)
+    recs = validate_records(records)
     total_weight = sum(r["weight"] for r in recs)
     weighted_sum = sum(r["score"] * r["weight"] for r in recs)
     return round(weighted_sum / total_weight, 2)
 
 
 def top_student(records: Iterable[Mapping[str, Any]]) -> str:
-    recs = _validate_records(records)
+    recs = validate_records(records)
     top = max(recs, key=lambda r: r["score"])
     return top["name"]
 
@@ -71,7 +72,7 @@ def top_student(records: Iterable[Mapping[str, Any]]) -> str:
 def pass_rate(records: Iterable[Mapping[str, Any]], pass_mark: float = 50) -> float:
     if not isinstance(pass_mark, (int, float)) or pass_mark != pass_mark:
         raise InvalidRecordError("pass_mark must be a valid number")
-    recs = _validate_records(records)
+    recs = validate_records(records)
     passed = sum(1 for r in recs if r["score"] >= pass_mark)
     return round((passed / len(recs)) * 100, 2)
 
@@ -90,7 +91,7 @@ def grade_distribution(
     You can override by passing boundaries like:
       {"A": 80, "B": 70, "C": 60}  # F is implicit
     """
-    recs = _validate_records(records)
+    recs = validate_records(records)
 
     if boundaries is None:
         boundaries = {"A": 70, "B": 60, "C": 50}
@@ -121,17 +122,3 @@ def grade_distribution(
         else:
             dist["F"] += 1
     return dist
-
-
-def summarize(records: Iterable[Mapping[str, Any]]) -> Dict[str, Any]:
-    """
-    Convenience function that returns a full summary in one call.
-    """
-    recs = _validate_records(records)
-    return {
-        "count": len(recs),
-        "weighted_average": weighted_average(recs),
-        "top_student": top_student(recs),
-        "pass_rate": pass_rate(recs),
-        "grade_distribution": grade_distribution(recs),
-    }

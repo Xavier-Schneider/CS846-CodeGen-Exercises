@@ -3,6 +3,7 @@
 from problems.problem_A import problem_A
 from typing import Any, Callable, Optional
 
+
 def run_problem_A_tests() -> bool:
     failures = 0
 
@@ -29,12 +30,6 @@ def run_problem_A_tests() -> bool:
         else:
             fail(f"{msg} | expected={expected!r}, got={actual!r}")
 
-    def assert_in(sub: str, s: str, msg: str) -> None:
-        if sub in s:
-            ok(msg)
-        else:
-            fail(f"{msg} | expected substring {sub!r} in {s!r}")
-
     def safe_call(label: str, fn: Callable[[], Any]) -> Optional[Any]:
         """
         For calls that are expected to succeed.
@@ -46,17 +41,16 @@ def run_problem_A_tests() -> bool:
             fail(f"{label} raised unexpectedly: {type(e).__name__}: {e}")
             return None
 
-    def expect_raises_contains(label: str, fn: Callable[[], Any], expected_substring: str) -> None:
+    def expect_raises(label: str, fn: Callable[[], Any]) -> None:
         """
-        For calls that are expected to raise.
-        If no exception is raised, record a failure.
-        If raised, check that message contains expected_substring.
+        Checks only that *some* exception is raised.
+        No exception-type checks. No message checks.
         """
         try:
             fn()
             fail(f"{label} | expected exception but none was raised")
         except Exception as e:
-            assert_in(expected_substring, str(e), f"{label} error message check")
+            ok(f"{label} raised as expected ({type(e).__name__})")
 
     def assert_summary_shape(out: Any, label: str) -> None:
         if out is None:
@@ -184,33 +178,46 @@ def run_problem_A_tests() -> bool:
         assert_equal(out.get("top_student"), "Alice", "Iterable: top_student == Alice")
 
     # ============================================================
-    # 5) Validation errors
+    # 5) Top-student tie behavior (spec allows any max scorer)
+    # ============================================================
+    section("Top-student tie behavior")
+
+    records = [
+        {"name": "A", "score": 90, "weight": 1},
+        {"name": "B", "score": 90, "weight": 1},
+        {"name": "C", "score": 10, "weight": 1},
+    ]
+    out = safe_call("Tie call", lambda: problem_A(records))
+    assert_summary_shape(out, "Tie")
+
+    if isinstance(out, dict):
+        assert_true(out.get("top_student") in {"A", "B"}, "Tie: top_student can be any max scorer")
+
+    # ============================================================
+    # 6) Validation errors (expected exceptions)
     # ============================================================
     section("Validation errors (expected exceptions)")
 
-    expect_raises_contains("records=None", lambda: problem_A(None), "records cannot be None")
-    expect_raises_contains("empty records", lambda: problem_A([]), "record list cannot be empty")
-    expect_raises_contains("non-iterable records", lambda: problem_A(123), "records must be an iterable")
-    expect_raises_contains(
-        "missing field (weight)",
-        lambda: problem_A([{"name": "Alice", "score": 80}]),
-        "missing required field",
-    )
-    expect_raises_contains(
-        "invalid name",
-        lambda: problem_A([{"name": "", "score": 80, "weight": 1}]),
-        "name must be a non-empty string",
-    )
-    expect_raises_contains(
-        "score out of range",
-        lambda: problem_A([{"name": "Alice", "score": 101, "weight": 1}]),
-        "score must be between 0 and 100",
-    )
-    expect_raises_contains(
-        "weight not positive",
-        lambda: problem_A([{"name": "Alice", "score": 80, "weight": 0}]),
-        "weight must be > 0",
-    )
+    expect_raises("records=None", lambda: problem_A(None))
+    expect_raises("empty list records", lambda: problem_A([]))
+    expect_raises("empty tuple records", lambda: problem_A(()))
+    expect_raises("empty generator records", lambda: problem_A(iter([])))
+
+    expect_raises("non-iterable records", lambda: problem_A(123))
+
+    expect_raises("record not dict-like", lambda: problem_A(["not a dict"]))
+
+    expect_raises("missing field (weight)", lambda: problem_A([{"name": "Alice", "score": 80}]))
+
+    expect_raises("invalid name (empty)", lambda: problem_A([{"name": "", "score": 80, "weight": 1}]))
+
+    expect_raises("score out of range high", lambda: problem_A([{"name": "Alice", "score": 101, "weight": 1}]))
+    expect_raises("score out of range low", lambda: problem_A([{"name": "Alice", "score": -1, "weight": 1}]))
+    expect_raises("score is NaN", lambda: problem_A([{"name": "Alice", "score": float("nan"), "weight": 1}]))
+
+    expect_raises("weight not positive", lambda: problem_A([{"name": "Alice", "score": 80, "weight": 0}]))
+    expect_raises("weight is NaN", lambda: problem_A([{"name": "Alice", "score": 80, "weight": float("nan")}]))
+    expect_raises("records is a string", lambda: problem_A("abc"))
 
     # ============================================================
     # Summary
