@@ -103,26 +103,6 @@ Test your solution with: python3 -m unittest tests.test_problem_A
 
 ---
 
-### Problem A_2: [Title]
-
-**Task Description:**  
-Describe the task clearly and precisely.
-
-**Starter Code:**  
-// Include all necessary starter code here or in a repo and share the link.
-
----
-
-### Problem A_n: [Title]
-
-**Task Description:**  
-Describe the task clearly and precisely.
-
-**Starter Code:**  
-// Include all necessary starter code here or in a repo and share the link.
-
----
-
 ### Problem B: Sudoku Puzzle Validator
 
 **Description:**  
