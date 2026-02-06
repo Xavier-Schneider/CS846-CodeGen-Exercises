@@ -219,7 +219,7 @@ Return the normalized output using the canonical formatting rules.
 Re-run the test command:
 
 ```
-python3 -m unittest tests.test_problem_C
+python3 -m unittest tests.test_problem_C.TestProblemCValid
 ```
 
 You should now see fewer failing tests. If the remaining failures mention sorting or multiple sections, you can move on to problem C_2.
@@ -240,7 +240,7 @@ Output ends with a final newline `\n`
 Re-run the test command:
 
 ```
-python3 -m unittest tests.test_problem_C
+python3 -m unittest tests.test_problem_C.TestNormalizeIni
 ```
 
 You should now see fewer failing tests. If the remaining failures mention duplicates or invalid input, move on to problem C_3.
@@ -268,7 +268,7 @@ Examples of invalid inputs you must detect:
 Re-run the test command:
 
 ```
-python3 -m unittest tests.test_problem_C
+python3 -m unittest tests.test_problem_C.TestProblemCInvalid
 ```
 You should now see all tests passing. Hooray!
 
