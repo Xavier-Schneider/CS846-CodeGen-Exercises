@@ -123,6 +123,8 @@ Describe the task clearly and precisely.
 **Task Description:**  
 Every graduate student needs a website. Make one! You may use any technology available to you.
 
+Build a website for a graduate student named [Name] who goes to the University of Waterloo. The website needs to be hosted on a server. Include an image of [Your favorite animal] on the website.
+
 ---
 
 ### Problem B: Sudoku Puzzle Validator

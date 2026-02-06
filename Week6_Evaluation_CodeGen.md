@@ -21,36 +21,6 @@
 * The code should be short (no more than 30 lines)
 * The code should pass the automated tests (correctness)
 
-**Good example**
-
-Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
-
-Prompt: Solve problem A by making use of the examlib library under misc -> src -> library.py
-
-```
-from problems.misc.src import library as examlib
-
-def problem_A(records):
-    # Validate records using examlib
-    validated_records = examlib.validate_records(records)
-    
-    # Compute statistics using examlib functions
-    count = len(validated_records)
-    weighted_avg = examlib.weighted_average(records)
-    top_student_name = examlib.top_student(records)
-    pass_rate_pct = examlib.pass_rate(records)
-    grade_dist = examlib.grade_distribution(records)
-    
-    # Return the summary dictionary
-    return {
-        "count": count,
-        "weighted_average": weighted_avg,
-        "top_student": top_student_name,
-        "pass_rate": pass_rate_pct,
-        "grade_distribution": grade_dist
-    }
-```
-
 **Bad example**
 
 Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
@@ -138,8 +108,38 @@ def problem_A(records):
     }
 ```
 
+**Good example**
+
+Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
+
+Prompt: Solve problem A by making use of the examlib library under misc -> src -> library.py
+
+```
+from problems.misc.src import library as examlib
+
+def problem_A(records):
+    # Validate records using examlib
+    validated_records = examlib.validate_records(records)
+    
+    # Compute statistics using examlib functions
+    count = len(validated_records)
+    weighted_avg = examlib.weighted_average(records)
+    top_student_name = examlib.top_student(records)
+    pass_rate_pct = examlib.pass_rate(records)
+    grade_dist = examlib.grade_distribution(records)
+    
+    # Return the summary dictionary
+    return {
+        "count": count,
+        "weighted_average": weighted_avg,
+        "top_student": top_student_name,
+        "pass_rate": pass_rate_pct,
+        "grade_distribution": grade_dist
+    }
+```
+
 **Analysis**
-The good example makes use of guideline 1, i.e. it used the provided library. The bad example does not use the library, as a result it produces duplicate, messy code.
+The good example makes use of guideline 1, i.e. it used the provided library. The bad example does not use the library, as a result it produced a giant block of duplicate code.
 ---
 
 ### Problem A_2: [Title]
@@ -159,6 +159,48 @@ Describe the evaluation criteria clearly and precisely.
 
 **Code:**  
 // Include all necessary code here that is the correct answer.
+
+### Problem D: Building a personal website
+
+**Evaluation Description:**
+
+* The website is compelling (looks good)
+* The website is functional (it has the elements of a graduate student website - publications, socials, etc.)
+
+**Bad Example**
+Context: (No context given - empty folder)
+
+Prompt: build a website for a graduate student named xavier schneider who goes to the university of waterloo. The website needs to be hosted on a server. Include an image of a rabbit on the website.
+
+Copilot: ... (output too large to include, see end result)
+
+result:
+
+![Bad example](bad.jpg)
+
+**Good Example**
+Context: (No context given - empty folder)
+
+Prompt: Create a simple python app that serves a static webpage using flask. Manage your dependencies in a virtual environment.
+
+Copilot: ... (output too large to include, see end result)
+
+Prompt: Use the html/javascript from this website as a base for my own. https://kuwingfung.github.io/
+
+Copilot: ... (output too large to include, see end result)
+
+Prompt: Change it so that it's about Xavier Schneider, and a bunch of made up publications.
+
+Copilot: ... (output too large to include, see end result)
+
+Prompt: Use a picture of a rabbit instead of the human.
+
+result:
+
+![Good example](good.jpg)
+
+**Analysis**
+The good example makes use of guidelines 1, 5 and 6. As a result, the final website is much more compelling visually and in terms of content. (note: in this particular example, we use other websites as examples - examples like this must be used with permission, or else simply draw inspiration from these websites.)
 
 ---
 

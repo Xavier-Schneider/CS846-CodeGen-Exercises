@@ -12,7 +12,7 @@
 - How AI-assisted coding will change software engineering: hard truths
 - OpenSpec: A Spec-Driven Workflow for AI Coding Assistants
 
-## 1. Guidelines
+## 1. Guidelines For Code Generation / Planning
 
 ### Guideline 1: Make requirements explicit in terms of needed packages or libraries, and explain what to use them for.
 **Description:**  
@@ -34,17 +34,38 @@ When requirements are vague, LLMs may choose the wrong tools, omit imports, or i
 ### Guideline N: [Short, Actionable Title]
 (Repeat the same structure for each guideline.)
 
-### Guideline 5: Break Large Requests into Steps
-(Repeat the same structure for each guideline.)
 
-### Guideline 6: Use Examples
-(Repeat the same structure for each guideline.)
+### Guideline 5: Break large requests into steps
+**Description:**
+When the task is large or multi-part, explicitly decompose it into a sequence of smaller steps (or milestones) the model should follow. Each step should have a clear goal and a concrete output (e.g., “define interfaces,” “write parsing function,” “add tests,” “run example”). If relevant, specify an order of operations (plan → implement → validate) and what “done” looks like for each step.
+
+**Reasoning:**
+LLMs are more reliable when they can focus on one objective at a time. Step-by-step decomposition reduces omissions (forgotten edge cases, missing imports, unhandled error paths), lowers the chance of inconsistent design decisions, and improves overall coherence—especially for longer code generation tasks. It also makes it easier to verify correctness at each stage and to iterate when requirements change.
+
+**Example:**
+“Build a log-processing tool in four steps: (1) define the input format and output schema, (2) implement the parser and normalization logic, (3) add aggregation + reporting functions, (4) write unit tests and provide a small demo run with sample logs.”
+
+
+### Guideline 6: Use targeted examples from the domain
+**Description:**
+Include 1–3 small, representative examples drawn from the target domain (inputs, outputs, edge cases, or typical workflows). Prefer examples that mirror real-world patterns the system will encounter, and make them specific enough to constrain interpretation (e.g., include realistic field names, units, timestamps, or error formats). If applicable, include both a “happy path” and a tricky edge case.
+
+**Reasoning:**
+Domain-targeted examples anchor the model’s interpretation of requirements and reduce ambiguity about formats, conventions, and correctness criteria. They act as “implicit tests,” guiding the model toward the expected behavior and preventing generic solutions that don’t match real data or real constraints. This is especially helpful in specialized domains where small formatting differences (units, time zones, IDs, naming conventions) can break the solution.
+
+**Example:**
+“If you’re generating code for financial transactions, include sample rows like: {"id":"txn_001","amount":-12.34,"currency":"USD","timestamp":"2026-02-05T14:03:22Z","category":"fees"} and an edge case like a reversal/refund transaction, so the model handles negative amounts and status changes correctly.”
 
 ---
 
 ## 2. Guideline to use in each problem
 
 Problem A: Guideline 1 (hint: look under problems -> misc -> src -> library.py)
+
+
+Now it's time to test what you've learned!
+
+Problem D: Guideline 1 (hint: flask is a simple python module for deploying websites), Guideline 6 (here are some great graduate student websites... https://kuwingfung.github.io/, https://benjaminschneider.ca/ and Copilot can access the internet, so... (you have permission to use them as examples)), Guideline 5 (Don't ask copilot to do the previous 2 steps at once!) 
 
 ## 2. References
 
