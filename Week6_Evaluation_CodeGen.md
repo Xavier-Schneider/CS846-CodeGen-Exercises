@@ -152,15 +152,177 @@ Describe the evaluation criteria clearly and precisely.
 
 ---
 
-### Problem A_n: [Title]
+### Problem C: INI Config Anaylsis
 
 **Evaluation Description:** 
 
-Describe the evaluation criteria clearly and precisely.
+* The code should have good readability
+* The code should pass the automated tests (correctness)
 
-**Code:**  
 
-// Include all necessary code here that is the correct answer.
+**Bad example**
+Prompt:
+```
+implement a INI Config Validator + Normalizer at problem_C.
+```
+
+Code:
+```python
+import re
+
+def problem_C(text: str) -> str:
+    lines = text.splitlines()
+    sections = {}
+    current_section = None
+    line_num = 0
+    
+    for line in lines:
+        line_num += 1
+        # Remove trailing comments
+        line = re.split(r'[;#]', line)[0].strip()
+        if not line:
+            continue  # blank line or comment
+        
+        if line.startswith('[') and line.endswith(']'):
+            section_name = line[1:-1]
+            if not re.match(r'^[a-z_][a-z0-9_]*$', section_name):
+                raise ValueError(f"INVALID_SECTION at line {line_num}")
+            if section_name in sections:
+                raise ValueError(f"DUPLICATE_SECTION at line {line_num}")
+            sections[section_name] = {}
+            current_section = section_name
+        elif '=' in line:
+            if current_section is None:
+                raise ValueError(f"KEY_OUTSIDE_SECTION at line {line_num}")
+            key, value = line.split('=', 1)
+            key = key.strip()
+            value = value.strip()
+            if not re.match(r'^[a-z_][a-z0-9_]*$', key):
+                raise ValueError(f"INVALID_KEY at line {line_num}")
+            if key in sections[current_section]:
+                raise ValueError(f"DUPLICATE_KEY at line {line_num}")
+            sections[current_section][key] = value
+        else:
+            raise ValueError(f"INVALID_LINE at line {line_num}")
+    
+    # Now normalize
+    output_lines = []
+    sorted_sections = sorted(sections.keys())
+    for i, section in enumerate(sorted_sections):
+        output_lines.append(f"[{section}]")
+        sorted_keys = sorted(sections[section].keys())
+        for key in sorted_keys:
+            output_lines.append(f"{key}={sections[section][key]}")
+        if i < len(sorted_sections) - 1:
+            output_lines.append("")
+    output_lines.append("")
+    return "\n".join(output_lines)
+```
+
+**Good example**
+
+Prompt:
+```
+Complete problem_C(text) in Python (stdlib only, do not use configparser).
+text is a raw INI string. Return a normalized INI string: sections sorted, keys sorted, exactly one blank line between sections, and a final newline.
+
+Before coding, write a 3-step plan: preprocessing → parsing/validation → rendering.
+
+Implement using helpers (define them in the same file):
+
+_clean_line(raw_line: str) -> str (remove comments starting at first ; or #, then strip whitespace)
+
+_parse_section(line: str, line_no: int) -> str (validate section regex, raise ValueError)
+
+_parse_kv(line: str, line_no: int) -> tuple[str, str] (split on first =, validate key regex, trim value)
+
+_render(sections: dict[str, dict[str, str]]) -> str
+
+Classification rule: after cleaning, each non-empty line must be either a section header or a key=value line; otherwise raise INVALID_LINE.
+
+Error format: raise ValueError with message "{CODE} line {line_no}: {details}", where CODE ∈ {KEY_OUTSIDE_SECTION, INVALID_SECTION, DUPLICATE_SECTION, INVALID_KEY, DUPLICATE_KEY, INVALID_LINE}.
+
+Keep helpers short and readable; avoid nested conditionals when possible.
+```
+
+Code:
+```python
+import re
+
+def problem_C(text: str) -> str:
+    # 3-step plan:
+    # 1. Preprocessing: Split text into lines, clean each line (remove comments and strip), filter empty lines.
+    # 2. Parsing/Validation: Parse sections and key-value pairs, validate formats, check for duplicates and structure.
+    # 3. Rendering: Sort sections and keys, render normalized INI string with blank lines between sections and final newline.
+    
+    lines = text.splitlines()
+    cleaned_lines = [_clean_line(line) for line in lines]
+    sections = {}
+    current_section = None
+    line_no = 0
+    
+    for cleaned in cleaned_lines:
+        line_no += 1
+        if not cleaned:
+            continue
+        if cleaned.startswith('[') and cleaned.endswith(']'):
+            section_name = _parse_section(cleaned, line_no)
+            if section_name in sections:
+                raise ValueError(f"DUPLICATE_SECTION line {line_no}: {cleaned}")
+            sections[section_name] = {}
+            current_section = section_name
+        elif '=' in cleaned:
+            if current_section is None:
+                raise ValueError(f"KEY_OUTSIDE_SECTION line {line_no}: {cleaned}")
+            key, value = _parse_kv(cleaned, line_no)
+            if key in sections[current_section]:
+                raise ValueError(f"DUPLICATE_KEY line {line_no}: {cleaned}")
+            sections[current_section][key] = value
+        else:
+            raise ValueError(f"INVALID_LINE line {line_no}: {cleaned}")
+    
+    return _render(sections)
+
+def _clean_line(raw_line: str) -> str:
+    # Remove comments starting at first ; or #
+    line = re.split(r'[;#]', raw_line)[0]
+    return line.strip()
+
+def _parse_section(line: str, line_no: int) -> str:
+    if not (line.startswith('[') and line.endswith(']')):
+        raise ValueError(f"INVALID_SECTION line {line_no}: {line}")
+    section_name = line[1:-1]
+    if not re.match(r'^[a-z_][a-z0-9_]*$', section_name):
+        raise ValueError(f"INVALID_SECTION line {line_no}: {line}")
+    return section_name
+
+def _parse_kv(line: str, line_no: int) -> tuple[str, str]:
+    if '=' not in line:
+        raise ValueError(f"INVALID_LINE line {line_no}: {line}")
+    key, value = line.split('=', 1)
+    key = key.strip()
+    value = value.strip()
+    if not re.match(r'^[a-z_][a-z0-9_]*$', key):
+        raise ValueError(f"INVALID_KEY line {line_no}: {line}")
+    return key, value
+
+def _render(sections: dict[str, dict[str, str]]) -> str:
+    output_lines = []
+    sorted_sections = sorted(sections.keys())
+    for i, section in enumerate(sorted_sections):
+        output_lines.append(f"[{section}]")
+        sorted_keys = sorted(sections[section].keys())
+        for key in sorted_keys:
+            output_lines.append(f"{key}={sections[section][key]}")
+        if i < len(sorted_sections) - 1:
+            output_lines.append("")
+    output_lines.append("")
+    return "\n".join(output_lines)
+```
+
+**Analysis**
+
+After applying the guideline, the code becomes more readable and interpretable without changing the core logic. In the bad example, preprocessing, validation, and rendering are mixed inside a single loop, making the control flow harder to follow and maintain. In contrast, the good example enforces a clear input–process–output structure: problem_C reads as a high-level pipeline, while helper functions isolate specific responsibilities such as cleaning lines, parsing sections, and rendering output. This separation reduces nesting, clarifies intent, and makes both correctness and errors easier to reason about.
 
 ### Problem D: Building a personal website
 
