@@ -39,7 +39,7 @@ Instead of saying:
 
 "Write a function to parse an INI file."
 
-Says:
+Say:
 
 "Complete problem_C(text) where text is a string containing INI config.
 The function must return a normalized INI string with sorted sections/keys and a final newline.
