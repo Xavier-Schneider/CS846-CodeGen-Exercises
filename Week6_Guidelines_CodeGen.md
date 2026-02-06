@@ -14,21 +14,19 @@
 
 ## 1. Guidelines
 
-> **Note:** Guidelines should be actionable, specific, and usable during real coding tasks.
-
-### Guideline 1: [Short, Actionable Title]
+### Guideline 1: Make requirements explicit in terms of needed packages or libraries, and explain what to use them for.
 **Description:**  
-State the guideline clearly and concretely.
+Clearly specify all required libraries, frameworks, tools, and dependencies in the prompt, and explain what each one should be used for. Instead of only naming a package, describe its role in the solution.
 
 **Reasoning:**  
-Explain *why* this guideline is important, referencing readings and external sources where relevant.
+When requirements are vague, LLMs may choose the wrong tools, omit imports, or implement inefficient solutions. The study found that explicitly naming dependencies helps generate more accurate and compatible code by reducing ambiguity and guiding the model toward the intended implementation approach.
 
 **Example:**  
-Provide a brief illustrative example (code or pseudo-code if helpful).
+"Use NumPy for numerical array operations" or "use pandas for tabular data manipulation".
 
 ---
 
-### Guideline 2: [Short, Actionable Title]
+### Guideline 2:  Specify pre-conditions (e.g., a data structure provided as input must be non-empty).
 (Repeat the same structure for each guideline.)
 
 ---
@@ -38,6 +36,9 @@ Provide a brief illustrative example (code or pseudo-code if helpful).
 
 ---
 
+## 2. Guideline to use in each problem
+
+Problem A: Guideline 1 (hint: look under problems -> misc -> src -> library.py)
 
 ## 2. References
 

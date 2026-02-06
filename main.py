@@ -1,7 +1,6 @@
 # test_problem_A_no_pytest.py
 
 from problems.problem_A import problem_A
-from problems.problem_D import decimal_to_binary
 from typing import Any, Callable, Optional
 
 
