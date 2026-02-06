@@ -209,13 +209,7 @@ You should see failing tests. If you see failing tests, you can move on to probl
 ### Problem C_1: Validate + normalize a single section
 
 Task Description:
-Implement `problem_C(text)` in `Problems/problem_C.py` so that it can correctly handle:
-
-* A single section like `[db]`
-* Multiple `key=value` lines inside that section
-* Whitespace around keys/values
-* Blank lines
-* Trailing comments (`;` or `#`)
+Implement `problem_C(text)` in `Problems/problem_C.py` so that it can correctly handle: A single section like `[db]`, Multiple `key=value` lines inside that section, Whitespace around keys/values, Blank lines, Trailing comments (`;` or `#`)
 
 Return the normalized output using the canonical formatting rules.
 
