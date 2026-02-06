@@ -65,10 +65,6 @@ Say:
 
 ---
 
-### Guideline N: [Short, Actionable Title]
-(Repeat the same structure for each guideline.)
-
-
 ### Guideline 5: Break large requests into steps
 **Description:**
 When the task is large or multi-part, explicitly decompose it into a sequence of smaller steps (or milestones) the model should follow. Each step should have a clear goal and a concrete output (e.g., “define interfaces,” “write parsing function,” “add tests,” “run example”). If relevant, specify an order of operations (plan → implement → validate) and what “done” looks like for each step.
@@ -92,10 +88,25 @@ Domain-targeted examples anchor the model’s interpretation of requirements and
 
 ---
 
+### Guideline 7: Add algorithmic details when logic is complex
+**Description:**  
+If you know additional algorithmic information about a specific problem, make sure to include that information in your prompt. This will help guide the code generation to a cleaner and/or more optimal solution.
+
+**Reasoning:**  
+Explain *why* this guideline is important, referencing readings and external sources where relevant.
+
+An LLM may know an efficient approach to a given algorithm or a certain way of solving it that makes the code cleaner, but choose to elicit code that is less optimal or less clean. Letting the LLM know which approach to use helps steer it in the correct direction.
+
+**Example:**  
+If you’re writing an algorithm to search for a number in a sorted list, the LLM may write a linear-time algorithm, assuming that the list size is small and because it’s simpler to write. Specifically, telling it to write a binary search algorithm that runs in O(log(n)) time helps steer the LLM toward producing more efficient software.
+
+---
+
 ## 2. Guideline to use in each problem
 
 Problem A: Guideline 1 (hint: look under problems -> misc -> src -> library.py)
 
+Problem B: Guideline 3 and Guideline 7
 
 Now it's time to test what you've learned!
 
