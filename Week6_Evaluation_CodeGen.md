@@ -140,15 +140,6 @@ def problem_A(records):
 
 **Analysis**
 The good example makes use of guideline 1, i.e. it used the provided library. The bad example does not use the library, as a result it produced a giant block of duplicate code.
----
-
-### Problem A_2: [Title]
-
-**Evaluation Description:**  
-Describe the evaluation criteria clearly and precisely.
-
-**Code:**  
-// Include all necessary code here that is the correct answer.
 
 ---
 
