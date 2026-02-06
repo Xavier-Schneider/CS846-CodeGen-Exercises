@@ -2,15 +2,15 @@
 
 **Authors:** Xavier Schneider, Greg French, Max Ku  
 **Readings Assigned:**  
-- Leveraging Print Debugging To Improve Code Generation In Large Language Models  
-- LLM-Based Test-Driven Interactive Code Generation: User Study and Empirical Evaluation
-- Self-Collaboration Code Generation via ChatGPT
-- SOEN-101: Code Generation by Emulating Software Process Models Using LLM Agents
-- Self-Organized Agents: A LLM Multi-Agent Framework
-- Empowering Agile-Based Generative Software Development through Human-AI Teamwork
-- Guidelines to Prompt Large Language Models for Code Generation: An Empirical Characterization
-- How AI-assisted coding will change software engineering: hard truths
-- OpenSpec: A Spec-Driven Workflow for AI Coding Assistants
+- Leveraging Print Debugging To Improve Code Generation In Large Language Models \[1\]  
+- LLM-Based Test-Driven Interactive Code Generation: User Study and Empirical Evaluation \[2\]  
+- Self-Collaboration Code Generation via ChatGPT \[3\]  
+- SOEN-101: Code Generation by Emulating Software Process Models Using LLM Agents \[4\]  
+- Self-Organized Agents: A LLM Multi-Agent Framework \[5\]  
+- Empowering Agile-Based Generative Software Development through Human-AI Teamwork \[6\]  
+- Guidelines to Prompt Large Language Models for Code Generation: An Empirical Characterization \[7\]  
+- How AI-assisted coding will change software engineering: hard truths \[8\]  
+- OpenSpec: A Spec-Driven Workflow for AI Coding Assistants \[9\]  
 
 ## 1. Guidelines For Code Generation / Planning
 
@@ -87,7 +87,14 @@ Problem D: Guideline 1 (hint: flask is a simple python module for deploying webs
 
 ## 2. References
 
-[1]  
-[2] 
+\[1\] Hu, X., et al. "Leveraging Print Debugging to Improve Code Generation in LLMs"\
+\[2\] Fakhoury, S., et al. "LLM-Based Test-Driven Interactive Code Generation: User Study and Empirical Evaluation" DOI\
+\[3\] Dong, Y., et al. "Self-Collaboration Code Generation via ChatGPT" ACM\
+\[4\] Lin, F., et al. "SOEN-101: Code Generation by Emulating Software Process Models Using Large Language Model Agents" arXiv\
+\[5\] Ishibashi, Y., & Nishimura, Y. "Self-Organized Agents: A LLM Multi-Agent Framework toward Ultra Large-Scale Code Generation and Optimization" arXiv\
+\[6\] Zhang, S., et al. "Empowering Agile-Based Generative Software Development through Human-AI Teamwork" ACM\
+\[7\] Midolo, A., et al. "Guidelines to Prompt Large Language Models for Code Generation: An Empirical Characterization" arXiv\
+\[8\] Orosz, G., & Osmani, A. "How AI-assisted coding will change software engineering: hard truths" Pragmatic Engineer Blog\
+\[9\] Code Coup "OpenSpec: A Spec-Driven Workflow for AI Coding Assistants (No API Keys Needed)" Medium
 
 ---
