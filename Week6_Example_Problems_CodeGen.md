@@ -124,3 +124,68 @@ Describe the task clearly and precisely.
 Every graduate student needs a website. Make one! You may use any technology available to you.
 
 ---
+
+### Problem B: Sudoku Puzzle Validator
+
+**Description:**  
+A [Sudoku puzzle](https://en.wikipedia.org/wiki/Sudoku) is a puzzle in which a user is given a 9x9 grid partially filled in with numbers 1-9. To complete the puzzle, the user must fill in each row, column, and 3x3 sub-square so that each contains exactly one number from 1-9. For a partially-completed puzzle, each row, column, and 3x3 sub-grid must contain at most one instance of numbers 1-9. In our case, an empty square will be represented by the character ‘*’. Your job is to write Python code to validate if a given Sudoku puzzle is valid or not.
+
+To begin, start by downloading the code from here: https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
+
+Once you’ve downloaded the code, run the following test command:
+```
+python3 -m unittest tests.test_problem_B
+```
+
+You should see 15 failing tests. If you see 15 failing tests, you can move on to problem B_1.
+
+### Problem B_1: Validate rows
+
+**Task Description:**  
+Write Python code for the ‘validate_rows’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no row contains duplicate numbers and  ‘False’ if at least one does.
+
+**Starter Code:**  
+https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises (The files required are Problems/problem_B.py and tests/test_problem_B.py)
+
+Re-run the test command:
+```
+python3 -m unittest tests.test_problem_B
+```
+
+You should now see only 10 failing tests. If you see 10 failing tests, you can move on to problem B_2.
+
+---
+
+### Problem B_2: Validate columns
+
+**Task Description:**  
+Write Python code for the ‘validate_cols’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no column contains duplicate numbers and  ‘False’ if at least one does.
+
+**Starter Code:**  
+https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises (The files required are Problems/problem_B.py and tests/test_problem_B.py)
+
+Re-run the test command:
+```
+python3 -m unittest tests.test_problem_B
+```
+
+You should now see only 5 failing tests. If you see 5 failing tests, you can move on to problem B_3.
+
+---
+
+### Problem B_3: Validate sub-grids
+
+**Task Description:**  
+Write Python code for the ‘validate_boxes’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no 3x3 sub-grid contains duplicate numbers and  ‘False’ if at least one does.
+
+**Starter Code:**  
+https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises (The files required are Problems/problem_B.py and tests/test_problem_B.py)
+
+Re-run the test command:
+```
+python3 -m unittest tests.test_problem_B
+```
+
+You should now see all tests passing. Hooray!
+
+---
