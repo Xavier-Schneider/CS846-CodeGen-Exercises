@@ -26,8 +26,24 @@ When requirements are vague, LLMs may choose the wrong tools, omit imports, or i
 
 ---
 
-### Guideline 2:  Specify pre-conditions (e.g., a data structure provided as input must be non-empty).
-(Repeat the same structure for each guideline.)
+### Guideline 2:  Always clearly specify the exact input type and exact output format.
+**Description:**
+Always explicitly state what the function takes as input and what it must return, including the exact data type and representation. For code-generation tasks ambiguity about input/output format may leads to incorrect implementations even if the internal logic is mostly right.
+
+**Reasoning:**  
+Without explicit I/O, the LLM may perform any unexpected behavior such as return a dict instead of a string, print output instead of returning, or normalize differently than tests expect.
+
+
+**Example:**  
+Instead of saying: 
+
+"Write a function to parse an INI file."
+
+Says:
+
+"Complete problem_C(text) where text is a string containing INI config.
+The function must return a normalized INI string with sorted sections/keys and a final newline.
+Raise ValueError on invalid input."
 
 ---
 
