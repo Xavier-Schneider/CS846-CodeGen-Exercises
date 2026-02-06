@@ -88,13 +88,11 @@ Domain-targeted examples anchor the model’s interpretation of requirements and
 
 ---
 
-### Guideline 7: Add algorithmic details when logic is complex
+### Guideline 7: Add algorithmic details when logic is complex \[7\]  
 **Description:**  
 If you know additional algorithmic information about a specific problem, make sure to include that information in your prompt. This will help guide the code generation to a cleaner and/or more optimal solution.
 
 **Reasoning:**  
-Explain *why* this guideline is important, referencing readings and external sources where relevant.
-
 An LLM may know an efficient approach to a given algorithm or a certain way of solving it that makes the code cleaner, but choose to elicit code that is less optimal or less clean. Letting the LLM know which approach to use helps steer it in the correct direction.
 
 **Example:**  
