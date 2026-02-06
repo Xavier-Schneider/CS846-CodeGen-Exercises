@@ -98,6 +98,9 @@ Example output shape:
 **Starter Code:**
 https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/blob/main/Problems/problem_A.py
 
+**Test**
+Test your solution with: python3 -m unittest tests.test_problem_A
+
 ---
 
 ### Problem A_2: [Title]
