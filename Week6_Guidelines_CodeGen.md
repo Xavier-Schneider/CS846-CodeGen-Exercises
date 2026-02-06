@@ -34,6 +34,12 @@ When requirements are vague, LLMs may choose the wrong tools, omit imports, or i
 ### Guideline N: [Short, Actionable Title]
 (Repeat the same structure for each guideline.)
 
+### Guideline 5: Break Large Requests into Steps
+(Repeat the same structure for each guideline.)
+
+### Guideline 6: Use Examples
+(Repeat the same structure for each guideline.)
+
 ---
 
 ## 2. Guideline to use in each problem

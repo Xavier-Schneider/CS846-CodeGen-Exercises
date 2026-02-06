@@ -118,12 +118,9 @@ Describe the task clearly and precisely.
 **Starter Code:**  
 // Include all necessary starter code here or in a repo and share the link.
 
----
+### Problem D: Building a personal website
 
-
-## 2. References
-
-[1]  
-[2] 
+**Task Description:**  
+Every graduate student needs a website. Make one! You may use any technology available to you.
 
 ---
