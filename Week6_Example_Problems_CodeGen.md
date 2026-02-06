@@ -118,13 +118,6 @@ Describe the task clearly and precisely.
 **Starter Code:**  
 // Include all necessary starter code here or in a repo and share the link.
 
-### Problem D: Building a personal website
-
-**Task Description:**  
-Every graduate student needs a website. Make one! You may use any technology available to you.
-
-Build a website for a graduate student named [Name] who goes to the University of Waterloo. The website needs to be hosted on a server. Include an image of [Your favorite animal] on the website.
-
 ---
 
 ### Problem B: Sudoku Puzzle Validator
@@ -189,5 +182,14 @@ python3 -m unittest tests.test_problem_B
 ```
 
 You should now see all tests passing. Hooray!
+
+---
+
+### Problem D: Building a personal website
+
+**Task Description:**  
+Every graduate student needs a website. Make one! You may use any technology available to you.
+
+Build a website for a graduate student named [Name] who goes to the University of Waterloo. The website needs to be hosted on a server. Include an image of [Your favorite animal] on the website.
 
 ---
