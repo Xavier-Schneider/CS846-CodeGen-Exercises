@@ -31,6 +31,24 @@ When requirements are vague, LLMs may choose the wrong tools, omit imports, or i
 
 ---
 
+### Guideline 3:  Specify Tool and Workflow Execution Mechanics
+**Description:**  
+Be specific, not just about whether a tool in your workflow should be run, but also about the specific command to run it. If you want the LLM to run a unit test, don’t just tell it to run tests; give it the exact command it should use to run the test.
+
+**Reasoning:**  
+If you don’t specify how the LLM should execute a tool, it may end up spinning its wheels, making multiple attempts to get it right. It may even give up if, after many attempts, it can’t guess the correct command.
+
+**Example:**  
+Instead of saying at the end of your prompt:  
+
+“When you are finished, please run tests.”
+
+Say:
+
+“When you are finished, please run tests using the test command ‘python3 -m unittest tests.test_problem_B’”
+
+---
+
 ### Guideline N: [Short, Actionable Title]
 (Repeat the same structure for each guideline.)
 
