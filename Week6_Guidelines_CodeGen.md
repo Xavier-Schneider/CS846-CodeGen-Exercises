@@ -57,38 +57,48 @@ If you don’t specify how the LLM should execute a tool, it may end up spinning
 **Example:**  
 Instead of saying at the end of your prompt:  
 
-“When you are finished, please run tests.”
+"When you are finished, please run tests."
 
 Say:
 
-“When you are finished, please run tests using the test command ‘python3 -m unittest tests.test_problem_B’”
+"When you are finished, please run tests using the test command ‘python3 -m unittest tests.test_problem_B’"
 
 ---
 
-### Guideline 5: Break large requests into steps
+### Guideline 4: Break large requests into multiple smaller requests
 **Description:**
-When the task is large or multi-part, explicitly decompose it into a sequence of smaller steps (or milestones) the model should follow. Each step should have a clear goal and a concrete output (e.g., “define interfaces,” “write parsing function,” “add tests,” “run example”). If relevant, specify an order of operations (plan → implement → validate) and what “done” looks like for each step.
+When the request is large or multi-part, explicitly decompose it into a sequence of smaller requests. Each request should have a clear goal and a concrete output (e.g., "define interfaces," "write parsing function," "add tests," "run example"). If relevant, specify what "done" looks like for each step.
 
 **Reasoning:**
 LLMs are more reliable when they can focus on one objective at a time. Step-by-step decomposition reduces omissions (forgotten edge cases, missing imports, unhandled error paths), lowers the chance of inconsistent design decisions, and improves overall coherence—especially for longer code generation tasks. It also makes it easier to verify correctness at each stage and to iterate when requirements change.
 
 **Example:**
-“Build a log-processing tool in four steps: (1) define the input format and output schema, (2) implement the parser and normalization logic, (3) add aggregation + reporting functions, (4) write unit tests and provide a small demo run with sample logs.”
+Prompt: "Build a log-processing tool, (1): define the input format and output schema", "(2) implement the parser and normalization logic", "(3) add aggregation + reporting functions", "(4) write unit tests and provide a small demo run with sample logs."
 
 
-### Guideline 6: Use targeted examples from the domain
+### Guideline 5: Use large scale examples from the domain
 **Description:**
-Include 1–3 small, representative examples drawn from the target domain (inputs, outputs, edge cases, or typical workflows). Prefer examples that mirror real-world patterns the system will encounter, and make them specific enough to constrain interpretation (e.g., include realistic field names, units, timestamps, or error formats). If applicable, include both a “happy path” and a tricky edge case.
+Include examples drawn from the target domain, and make them large-scale: representative volumes, realistic structure, and real constraints the system will face (schemas, workflows, limits, edge cases, etc.). Prefer examples that mirror real-world tools or systems the model should emulate, and make them specific enough to constrain interpretation (e.g., “mirror this Excel behavior,” “follow this app’s interaction model,” “match this API structure”).
 
 **Reasoning:**
-Domain-targeted examples anchor the model’s interpretation of requirements and reduce ambiguity about formats, conventions, and correctness criteria. They act as “implicit tests,” guiding the model toward the expected behavior and preventing generic solutions that don’t match real data or real constraints. This is especially helpful in specialized domains where small formatting differences (units, time zones, IDs, naming conventions) can break the solution.
+Small or abstract examples don’t communicate how a system behaves under realistic conditions. Large, domain-faithful examples clarify expectations around structure, conventions, and edge cases. Referencing familiar, real-world functionality (like Excel) anchors interpretation and reduces ambiguity about how features should behave in practice.
 
 **Example:**
-“If you’re generating code for financial transactions, include sample rows like: {"id":"txn_001","amount":-12.34,"currency":"USD","timestamp":"2026-02-05T14:03:22Z","category":"fees"} and an edge case like a reversal/refund transaction, so the model handles negative amounts and status changes correctly.”
+“If you’re generating a spreadsheet-processing feature, mirror how Excel handles real workflows. For instance: provide a table with ~5,000 rows containing columns like Date, Region, Product, Revenue, and Cost, and specify behavior such as:
+
+Support formulas similar to Excel (e.g., =SUM(E2:E5001), =AVERAGEIF(B:B,"West",E:E)).
+
+Handle sorting and filtering across large datasets.
+
+Preserve relative vs. absolute references (like A1 vs. $A$1).
+
+Include edge cases such as empty cells, text in numeric columns, and very large values.
+
+This signals that the output should behave like a real spreadsheet tool at scale, not just perform simple calculations on a small sample.”
 
 ---
 
-### Guideline 7: Add algorithmic details when logic is complex \[7\]  
+### Guideline 6: Add algorithmic details when logic is complex \[7\]  
 **Description:**  
 If you know additional algorithmic information about a specific problem, make sure to include that information in your prompt. This will help guide the code generation to a cleaner and/or more optimal solution.
 
@@ -104,11 +114,13 @@ If you’re writing an algorithm to search for a number in a sorted list, the LL
 
 Problem A: Guideline 1 (hint: look under problems -> misc -> src -> library.py)
 
-Problem B: Guideline 3 and Guideline 7
+Problem B: Guideline 3 and Guideline 6
+
+Problem C: Guideline 2 and Guideline 3 (hint: the stages of INI processing are preprocessing -> parsing/validation -> rendering. Input is a raw INI string, output is a normalized INI string.)
 
 Now it's time to test what you've learned!
 
-Problem D: Guideline 1 (hint: flask is a simple python module for deploying websites), Guideline 6 (here are some great graduate student websites... https://kuwingfung.github.io/, https://benjaminschneider.ca/ and Copilot can access the internet, so... (you have permission to use them as examples)), Guideline 5 (Don't ask copilot to do the previous 2 steps at once!) 
+Problem D: Guideline 1 (hint: flask is a simple python module for deploying websites), Guideline 5 (here are some great graduate student websites... https://kuwingfung.github.io/, https://benjaminschneider.ca/ and Copilot can access the internet, so... (you have permission to use them as examples)), Guideline 4 (Don't ask copilot to do the previous 2 steps at once!) 
 
 ## 2. References
 
@@ -122,4 +134,5 @@ Problem D: Guideline 1 (hint: flask is a simple python module for deploying webs
 \[8\] Orosz, G., & Osmani, A. "How AI-assisted coding will change software engineering: hard truths" Pragmatic Engineer Blog\
 \[9\] Code Coup "OpenSpec: A Spec-Driven Workflow for AI Coding Assistants (No API Keys Needed)" Medium
 
+These Guidelines were made with the help of GPT 5.2
 ---

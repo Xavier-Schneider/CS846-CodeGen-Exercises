@@ -289,6 +289,7 @@ In the “Bad” example, Grok produces code with four nested loops instead of t
 
 * The code should have good readability
 * The code should pass the automated tests (correctness)
+* The code should have clear control flow
 
 
 **Bad example**
@@ -357,7 +358,7 @@ Prompt:
 Complete problem_C(text) in Python (stdlib only, do not use configparser).
 text is a raw INI string. Return a normalized INI string: sections sorted, keys sorted, exactly one blank line between sections, and a final newline.
 
-Before coding, write a 3-step plan: preprocessing → parsing/validation → rendering.
+Before coding, write a 3-step plan: preprocessing -> parsing/validation -> rendering.
 
 Implement using helpers (define them in the same file):
 

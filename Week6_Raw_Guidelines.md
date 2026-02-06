@@ -66,10 +66,10 @@ to improve accuracy, stability, and overall code quality.
 
     Act in stages:
 
-    Role 1: Requirements Engineer → extract constraints
-    Role 2: Architect → design modules
-    Role 3: Developer → implement
-    Role 4: Tester → write tests and review
+    Role 1: Requirements Engineer -> extract constraints
+    Role 2: Architect -> design modules
+    Role 3: Developer -> implement
+    Role 4: Tester -> write tests and review
 
 ---
 ### Guideline 4 \[4\]: Decompose Large Systems into Independent Components
@@ -195,7 +195,7 @@ architecture and reliability \[6\].
 ### Guideline 4 \[6\]\[7\]: Use Short Iterative Feedback Loops
 
 **Description:**\
-Run prompts in small cycles: generate → review → adjust → regenerate,
+Run prompts in small cycles: generate -> review -> adjust -> regenerate,
 rather than attempting a complete system in one prompt.
 
 **Reasoning:**\
@@ -236,17 +236,6 @@ and validation remain critical even as AI accelerates development \[1\].
 
 ## 3. Guidelines from LLMs
 
-### Guideline 1: [Short, Actionable Title]
-**Description:**  
-State the guideline clearly and concretely.
-
-**Reasoning:**  
-Explain *why* this guideline is important, referencing readings and external sources where relevant.
-
-**Example:**  
-Provide a brief illustrative example (code or pseudo-code if helpful).
-
----
 ### Guideline 1: State the Desired Level of Abstraction
 
 **Description:**\
@@ -339,8 +328,8 @@ critique and improve it.
 **Reasoning:**\
 LLMs are often better at reviewing than generating. A structured
 self-review pass helps catch logical errors, missing edge cases, and
-poor design choices. This mimics real engineering workflows (write →
-review → revise).
+poor design choices. This mimics real engineering workflows (write ->
+review -> revise).
 
 **Example:**
 
