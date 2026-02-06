@@ -31,7 +31,7 @@ When requirements are vague, LLMs may choose the wrong tools, omit imports, or i
 Always explicitly state what the function takes as input and what it must return, including the exact data type and representation. For code-generation tasks ambiguity about input/output format may leads to incorrect implementations even if the internal logic is mostly right.
 
 **Reasoning:**  
-Without explicit I/O, the LLM may perform any unexpected behavior such as return a dict instead of a string, print output instead of returning, or normalize differently than tests expect.
+Without explicit input and output, the LLM may perform any unexpected behavior such as return a dict instead of a string, print output instead of returning, or normalize differently than tests expect.
 
 
 **Example:**  
