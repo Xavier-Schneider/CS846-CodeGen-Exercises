@@ -176,7 +176,7 @@ Copilot: ... (output too large to include, see end result)
 
 result:
 
-![Bad example](bad.jpg)
+![Bad example](bad.png)
 
 **Good Example**
 Context: (No context given - empty folder)
@@ -197,7 +197,7 @@ Prompt: Use a picture of a rabbit instead of the human.
 
 result:
 
-![Good example](good.jpg)
+![Good example](good.png)
 
 **Analysis**
 The good example makes use of guidelines 1, 5 and 6. As a result, the final website is much more compelling visually and in terms of content. (note: in this particular example, we use other websites as examples - examples like this must be used with permission, or else simply draw inspiration from these websites.)
