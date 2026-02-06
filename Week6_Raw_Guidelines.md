@@ -357,18 +357,12 @@ review → revise).
 
 ## 4. References
 
-\[1\] Leveraging Print Debugging to Improve Code Generation in LLMs\
-\[2\] LLM-Based Test-Driven Interactive Code Generation: User Study and
-Empirical Evaluation\
-\[3\] Code Generation by Emulating Software Process Models Using Large
-Language Model Agents\
-\[4\] Self-Organized Agents: A LLM Multi-Agent Framework toward Ultra
-Large-Scale Code Generation and Optimization\
-\[5\] Guidelines to Prompt Large Language Models for Code Generation: An
-Empirical Characterization
-\[6\]
-https://newsletter.pragmaticengineer.com/p/how-ai-will-change-software-engineering\
-\[7\]
-https://medium.com/coding-nexus/openspec-a-spec-driven-workflow-for-ai-coding-assistants-no-api-keys-needed-d5b3323294fa 
+\[1\] Hu, X., et al. "Leveraging Print Debugging to Improve Code Generation in LLMs"\
+\[2\] Fakhoury, S., et al. "LLM-Based Test-Driven Interactive Code Generation: User Study and Empirical Evaluation" DOI\
+\[3\] Lin, F., et al. "SOEN-101: Code Generation by Emulating Software Process Models Using Large Language Model Agents" arXiv\
+\[4\] Ishibashi, Y., & Nishimura, Y. "Self-Organized Agents: A LLM Multi-Agent Framework toward Ultra Large-Scale Code Generation and Optimization" arXiv\
+\[5\] Midolo, A., et al. "Guidelines to Prompt Large Language Models for Code Generation: An Empirical Characterization" arXiv\
+\[6\] Orosz, G., & Osmani, A. "How AI-assisted coding will change software engineering: hard truths" Pragmatic Engineer Blog\
+\[7\] Code Coup "OpenSpec: A Spec-Driven Workflow for AI Coding Assistants (No API Keys Needed)" Medium
 
 ---
