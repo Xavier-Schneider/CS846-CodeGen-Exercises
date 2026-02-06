@@ -143,6 +143,146 @@ The good example makes use of guideline 1, i.e. it used the provided library. Th
 
 ---
 
+### Problem B_1: Validate rows
+
+**Evaluation Description:**  
+* The code should return True in the validate_rows method if all rows are valid. False otherwise
+* The code should pass the first 5 automated tests (correctness)
+
+**Bad example**
+
+Prompt: Write Python code for the ‘validate_rows’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no row contains duplicate numbers and ‘False’ if at least one does.
+
+```
+def validate_rows(self):
+        for row in self.grid:
+            seen = set()
+            for num in row:
+                if num != "*":
+                    if num in seen:
+                        return False
+                    seen.add(num)
+        return True
+```
+
+**Good example**
+
+Prompt: Write Python code for the ‘validate_rows’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no row contains duplicate numbers and ‘False’ if at least one does. When you are finished, please run tests using the test command ‘python3 -m unittest tests.test_problem_B’.
+
+```
+def validate_rows(self):
+        for row in self.grid:
+            seen = set()
+            for num in row:
+                if num != "*":
+                    if num in seen:
+                        return False
+                    seen.add(num)
+        return True
+```
+
+**Analysis**
+Both the “Bad” and “Good” examples produce identical code, but in the chat window, it repeatedly attempts to call a test command (even though the prompt doesn’t mention tests) until it gets it right. With the “Good” example, Grok executes the test command flawlessly the first time.
+
+---
+
+### Problem B_2: Validate columns
+
+**Evaluation Description:**  
+* The code should return True in the validate_cols method if all columns are valid. False otherwise
+* The code should pass the next 5 automated tests (correctness)
+
+**Bad example**
+
+Prompt: Write Python code for the ‘validate_cols’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no column contains duplicate numbers and ‘False’ if at least one does.
+
+```
+def validate_cols(self):
+        for col in range(9):
+            seen = set()
+            for row in self.grid:
+                num = row[col]
+                if num != "*":
+                    if num in seen:
+                        return False
+                    seen.add(num)
+        return True
+```
+
+**Good example**
+
+Prompt: Write Python code for the ‘validate_cols’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no column contains duplicate numbers and ‘False’ if at least one does. When you are finished, please run tests using the test command ‘python3 -m unittest tests.test_problem_B’.
+
+```
+def validate_cols(self):
+        for col in range(9):
+            seen = set()
+            for row in range(9):
+                num = self.grid[row][col]
+                if num != "*":
+                    if num in seen:
+                        return False
+                    seen.add(num)
+        return True
+```
+
+**Analysis**
+Both the “Bad” and “Good” examples produce very similar code, but in the chat window, Grok repeatedly attempts to run a test command (even though the prompt doesn’t mention tests) until it succeeds. With the “Good” example, Grok executes the test command flawlessly the first time.
+
+---
+
+### Problem B_3: Validate sub-grids
+
+**Evaluation Description:**  
+* The code should return True in the validate_boxes method if all sub-grids are valid. False otherwise
+* The code should pass the last 5 automated tests (correctness)
+
+**Bad example**
+
+Prompt: Write Python code for the ‘validate_boxes’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no 3x3 sub-grid contains duplicate numbers and ‘False’ if at least one does.
+
+```
+def validate_boxes(self):
+        for box_row in range(0, 9, 3):
+            for box_col in range(0, 9, 3):
+                seen = set()
+                for r in range(box_row, box_row + 3):
+                    for c in range(box_col, box_col + 3):
+                        num = self.grid[r][c]
+                        if num != "*":
+                            if num in seen:
+                                return False
+                            seen.add(num)
+        return True
+```
+
+**Good example**
+
+Write Python code for the ‘validate_boxes’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no 3x3 sub-grid contains duplicate numbers and ‘False’ if at least one does. When you are finished, please run tests using the test command ‘python3 -m unittest tests.test_problem_B’.
+You must also meet the following 2 conditions:  
+- Use only two nested loops in the method overall. 
+- Divide each row and column by 3 to check which sub-grid you are in
+
+```
+def validate_boxes(self):
+        boxes = [[set() for _ in range(3)] for _ in range(3)]
+        for row in range(9):
+            for col in range(9):
+                num = self.grid[row][col]
+                if num != "*":
+                    box_row = row // 3
+                    box_col = col // 3
+                    if num in boxes[box_row][box_col]:
+                        return False
+                    boxes[box_row][box_col].add(num)
+        return True
+```
+
+**Analysis**
+In the “Bad” example, Grok produces code with four nested loops instead of two. If the prompter knows about this problem ahead of time, they can leverage that knowledge to get the model to output a solution using only two nested loops and the technique of dividing the row and column by 3 to perform a lookup to determine whether duplicate numbers exist in the same sub-grid. Additionally, because the model was explicitly told the test command, Grok was able to execute it in one shot rather than making many failed attempts. 
+
+---
+
 ### Problem C: INI Config Anaylsis
 
 **Evaluation Description:** 
