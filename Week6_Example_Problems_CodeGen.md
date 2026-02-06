@@ -134,13 +134,13 @@ python3 -m unittest tests.test_problem_B
 
 You should see 15 failing tests. If you see 15 failing tests, you can move on to problem B_1.
 
+**Starter Code:**  
+https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises (The files required are Problems/problem_B.py and tests/test_problem_B.py)
+
 ### Problem B_1: Validate rows
 
 **Task Description:**  
 Write Python code for the ‘validate_rows’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no row contains duplicate numbers and  ‘False’ if at least one does.
-
-**Starter Code:**  
-https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises (The files required are Problems/problem_B.py and tests/test_problem_B.py)
 
 Re-run the test command:
 ```
@@ -156,9 +156,6 @@ You should now see only 10 failing tests. If you see 10 failing tests, you can m
 **Task Description:**  
 Write Python code for the ‘validate_cols’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no column contains duplicate numbers and  ‘False’ if at least one does.
 
-**Starter Code:**  
-https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises (The files required are Problems/problem_B.py and tests/test_problem_B.py)
-
 Re-run the test command:
 ```
 python3 -m unittest tests.test_problem_B
@@ -172,9 +169,6 @@ You should now see only 5 failing tests. If you see 5 failing tests, you can mov
 
 **Task Description:**  
 Write Python code for the ‘validate_boxes’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no 3x3 sub-grid contains duplicate numbers and  ‘False’ if at least one does.
-
-**Starter Code:**  
-https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises (The files required are Problems/problem_B.py and tests/test_problem_B.py)
 
 Re-run the test command:
 ```
