@@ -154,10 +154,12 @@ Describe the evaluation criteria clearly and precisely.
 
 ### Problem A_n: [Title]
 
-**Evaluation Description:**  
+**Evaluation Description:** 
+
 Describe the evaluation criteria clearly and precisely.
 
 **Code:**  
+
 // Include all necessary code here that is the correct answer.
 
 ### Problem D: Building a personal website
@@ -168,6 +170,7 @@ Describe the evaluation criteria clearly and precisely.
 * The website is functional (it has the elements of a graduate student website - publications, socials, etc.)
 
 **Bad Example**
+
 Context: (No context given - empty folder)
 
 Prompt: build a website for a graduate student named xavier schneider who goes to the university of waterloo. The website needs to be hosted on a server. Include an image of a rabbit on the website.
@@ -179,6 +182,7 @@ result:
 ![Bad example](bad.png)
 
 **Good Example**
+
 Context: (No context given - empty folder)
 
 Prompt: Create a simple python app that serves a static webpage using flask. Manage your dependencies in a virtual environment.
