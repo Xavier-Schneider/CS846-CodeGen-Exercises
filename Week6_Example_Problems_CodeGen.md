@@ -10,7 +10,7 @@ Problems A, B, and C will be completed in Python. Problem D may be completed in 
 https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
 **Model:**  
-Please use **Grok Code Fast 1** as the model to stay consistent with our results.
+Please select **Grok Code Fast 1**
 
 ## 1. Example Problems
 
