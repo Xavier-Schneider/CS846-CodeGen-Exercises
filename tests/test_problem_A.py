@@ -1,121 +1,243 @@
 import unittest
+from Problems.problem_A import SudokuPuzzleValidator
 
-from Problems.problem_A import problem_A
-
-
-class TestProblemAValid(unittest.TestCase):
-    def assert_summary_shape(self, out):
-        self.assertIsInstance(out, dict)
-        expected_keys = {"count", "weighted_average", "top_student", "pass_rate", "grade_distribution"}
-        self.assertEqual(set(out.keys()), expected_keys)
-
-        self.assertIsInstance(out["count"], int)
-        self.assertIsInstance(out["weighted_average"], (int, float))
-        self.assertIsInstance(out["top_student"], str)
-        self.assertIsInstance(out["pass_rate"], (int, float))
-
-        grade_distribution = out["grade_distribution"]
-        self.assertIsInstance(grade_distribution, dict)
-        self.assertEqual(set(grade_distribution.keys()), {"A", "B", "C", "F"})
-        for grade, count in grade_distribution.items():
-            self.assertIsInstance(count, int)
-            self.assertGreaterEqual(count, 0)
-
-    def test_happy_path(self):
-        records = [
-            {"name": "Alice", "score": 78, "weight": 1.0},
-            {"name": "Bob", "score": 45, "weight": 0.5},
-            {"name": "Charlie", "score": 88, "weight": 1.5},
-            {"name": "Diana", "score": 60, "weight": 1.0},
-            {"name": "Eve", "score": 52, "weight": 1.0},
+class TestSudokuPuzzleValidator(unittest.TestCase):
+    def test_validate_rows_empty_grid(self):
+        grid = [
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
         ]
 
-        out = problem_A(records)
-        self.assert_summary_shape(out)
+        validator = SudokuPuzzleValidator(grid)
+        self.assertTrue(validator.validate_rows())
 
-        total_weight = 1.0 + 0.5 + 1.5 + 1.0 + 1.0
-        weighted_sum = 78 * 1.0 + 45 * 0.5 + 88 * 1.5 + 60 * 1.0 + 52 * 1.0
-        expected_avg = round(weighted_sum / total_weight, 2)
-
-        passed = sum(1 for r in records if r["score"] >= 50)
-        expected_pass_rate = round((passed / len(records)) * 100, 2)
-
-        self.assertEqual(out.get("count"), 5)
-        self.assertEqual(out.get("top_student"), "Charlie")
-        self.assertEqual(out.get("weighted_average"), expected_avg)
-        self.assertEqual(out.get("pass_rate"), expected_pass_rate)
-        self.assertEqual(out.get("grade_distribution"), {"A": 2, "B": 1, "C": 1, "F": 1})
-
-    def test_rounding(self):
-        records = [
-            {"name": "A", "score": 0, "weight": 1},
-            {"name": "B", "score": 100, "weight": 2},
+    def test_validate_rows_valid(self):
+        grid = [
+            ["1","2","3","4","5","6","7","8","9"],
+            ["4","5","6","7","8","9","1","2","3"],
+            ["7","8","9","1","2","3","4","5","6"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
         ]
 
-        out = problem_A(records)
-        self.assert_summary_shape(out)
-        self.assertEqual(out.get("weighted_average"), 66.67)
-        self.assertEqual(out.get("pass_rate"), 50.0)
+        validator = SudokuPuzzleValidator(grid)
+        self.assertTrue(validator.validate_rows())
 
-    def test_grade_boundaries(self):
-        records = [
-            {"name": "A", "score": 70, "weight": 1},
-            {"name": "B", "score": 60, "weight": 1},
-            {"name": "C", "score": 50, "weight": 1},
-            {"name": "F", "score": 49.999, "weight": 1},
+    def test_validate_rows_invalid_duplicate(self):
+        grid = [
+            ["1","2","3","4","5","6","7","8","1"],  # duplicate 1 in first row
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
         ]
 
-        out = problem_A(records)
-        self.assert_summary_shape(out)
-        self.assertEqual(out.get("grade_distribution"), {"A": 1, "B": 1, "C": 1, "F": 1})
+        validator = SudokuPuzzleValidator(grid)
+        self.assertIs(validator.validate_rows(), False)
 
-    def test_iterable_support(self):
-        records = (
-            {"name": "Alice", "score": 80, "weight": 1},
-            {"name": "Bob", "score": 20, "weight": 1},
-        )
-
-        out = problem_A(records)
-        self.assert_summary_shape(out)
-        self.assertEqual(out.get("count"), 2)
-        self.assertEqual(out.get("top_student"), "Alice")
-
-    def test_top_student_tie(self):
-        records = [
-            {"name": "A", "score": 90, "weight": 1},
-            {"name": "B", "score": 90, "weight": 1},
-            {"name": "C", "score": 10, "weight": 1},
+    def test_validate_rows_valid_scattered(self):
+        grid = [
+            ["5","3","*","*","7","*","*","*","*"],
+            ["6","*","*","1","9","5","*","*","*"],
+            ["*","9","8","*","*","*","*","6","*"],
+            ["8","*","*","*","6","*","*","*","3"],
+            ["4","*","*","8","*","3","*","*","1"],
+            ["7","*","*","*","2","*","*","*","6"],
+            ["*","6","*","*","*","*","2","8","*"],
+            ["*","*","*","4","1","9","*","*","5"],
+            ["*","*","*","*","8","*","*","7","9"],
         ]
 
-        out = problem_A(records)
-        self.assert_summary_shape(out)
-        self.assertIn(out.get("top_student"), {"A", "B"})
+        validator = SudokuPuzzleValidator(grid)
+        self.assertTrue(validator.validate_rows())
 
-
-class TestProblemAInvalid(unittest.TestCase):
-    def test_validation_errors(self):
-        cases = [
-            ("records=None", lambda: problem_A(None)),
-            ("empty list records", lambda: problem_A([])),
-            ("empty tuple records", lambda: problem_A(())),
-            ("empty generator records", lambda: problem_A(iter([]))),
-            ("non-iterable records", lambda: problem_A(123)),
-            ("record not dict-like", lambda: problem_A(["not a dict"])),
-            ("missing field (weight)", lambda: problem_A([{"name": "Alice", "score": 80}])),
-            ("invalid name (empty)", lambda: problem_A([{"name": "", "score": 80, "weight": 1}])),
-            ("score out of range high", lambda: problem_A([{"name": "Alice", "score": 101, "weight": 1}])),
-            ("score out of range low", lambda: problem_A([{"name": "Alice", "score": -1, "weight": 1}])),
-            ("score is NaN", lambda: problem_A([{"name": "Alice", "score": float("nan"), "weight": 1}])),
-            ("weight not positive", lambda: problem_A([{"name": "Alice", "score": 80, "weight": 0}])),
-            ("weight is NaN", lambda: problem_A([{"name": "Alice", "score": 80, "weight": float("nan")}])),
-            ("records is a string", lambda: problem_A("abc")),
+    def test_validate_rows_invalid_scattered(self):
+        grid = [
+            ["5","3","*","*","7","*","*","*","*"],
+            ["6","*","*","1","9","5","*","*","*"],
+            ["*","9","8","*","*","*","*","6","*"],
+            ["8","*","*","*","6","*","*","*","3"],
+            ["4","*","*","8","*","3","*","*","1"],
+            ["7","*","*","*","2","*","*","7","6"],  # duplicate 7 in row 6
+            ["*","6","*","*","*","*","2","8","*"],
+            ["*","*","*","4","1","9","*","*","5"],
+            ["*","*","*","*","8","*","*","7","9"],
         ]
 
-        for label, fn in cases:
-            with self.subTest(label=label):
-                with self.assertRaises(Exception):
-                    fn()
+        validator = SudokuPuzzleValidator(grid)
+        self.assertIs(validator.validate_rows(), False)
 
+    def test_validate_cols_empty_grid(self):
+        grid = [
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+        ]
 
-if __name__ == "__main__":
-    unittest.main()
+        validator = SudokuPuzzleValidator(grid)
+        self.assertTrue(validator.validate_cols())
+
+    def test_validate_cols_valid(self):
+        grid = [
+            ["1","*","*","*","*","*","*","*","*"],
+            ["2","*","*","*","*","*","*","*","*"],
+            ["3","*","*","*","*","*","*","*","*"],
+            ["4","*","*","*","*","*","*","*","*"],
+            ["5","*","*","*","*","*","*","*","*"],
+            ["6","*","*","*","*","*","*","*","*"],
+            ["7","*","*","*","*","*","*","*","*"],
+            ["8","*","*","*","*","*","*","*","*"],
+            ["9","*","*","*","*","*","*","*","*"],
+        ]
+
+        validator = SudokuPuzzleValidator(grid)
+        self.assertTrue(validator.validate_cols())
+
+    def test_validate_cols_invalid_duplicate(self):
+        grid = [
+            ["5","*","*","*","*","*","*","*","*"],
+            ["2","*","*","*","*","*","*","*","*"],
+            ["3","*","*","*","*","*","*","*","*"],
+            ["4","*","*","*","*","*","*","*","*"],
+            ["5","*","*","*","*","*","*","*","*"],  # duplicate 5 in first column
+            ["6","*","*","*","*","*","*","*","*"],
+            ["7","*","*","*","*","*","*","*","*"],
+            ["8","*","*","*","*","*","*","*","*"],
+            ["9","*","*","*","*","*","*","*","*"],
+        ]
+
+        validator = SudokuPuzzleValidator(grid)
+        self.assertIs(validator.validate_cols(), False)
+
+    def test_validate_cols_valid_scattered(self):
+        grid = [
+            ["5","3","*","*","7","*","*","*","*"],
+            ["6","*","*","1","9","5","*","*","*"],
+            ["*","9","8","*","*","*","*","6","*"],
+            ["8","*","*","*","6","*","*","*","3"],
+            ["4","*","*","8","*","3","*","*","1"],
+            ["7","*","*","*","2","*","*","*","6"],
+            ["*","6","*","*","*","*","2","8","*"],
+            ["*","*","*","4","1","9","*","*","5"],
+            ["*","*","*","*","8","*","*","7","9"],
+        ]
+
+        validator = SudokuPuzzleValidator(grid)
+        self.assertTrue(validator.validate_cols())
+
+    def test_validate_cols_invalid_scattered(self):
+        grid = [
+            ["5","3","*","*","7","*","*","*","*"],
+            ["6","*","*","1","9","5","*","*","*"],
+            ["*","9","8","*","*","*","*","6","*"],
+            ["8","*","*","*","6","*","*","*","3"],
+            ["4","*","*","8","*","3","*","*","1"],
+            ["7","*","*","*","2","*","*","*","6"],
+            ["*","6","*","*","*","*","2","8","*"],
+            ["*","*","*","4","1","9","*","*","5"],
+            ["*","*","*","*","8","*","*","8","9"],  # duplicate 8 in column 8
+        ]
+
+        validator = SudokuPuzzleValidator(grid)
+        self.assertIs(validator.validate_cols(), False)
+
+    def test_validate_boxes(self):
+        grid = [
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+        ]
+
+        validator = SudokuPuzzleValidator(grid)
+        self.assertTrue(validator.validate_boxes())
+
+    def test_validate_boxes_valid(self):
+        grid = [
+            ["1","2","3","*","*","*","*","*","*"],
+            ["4","5","6","*","*","*","*","*","*"],
+            ["7","8","9","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+        ]
+
+        validator = SudokuPuzzleValidator(grid)
+        self.assertTrue(validator.validate_boxes())
+
+    def test_validate_boxes_invalid_duplicate(self):
+        grid = [
+            ["1","2","3","*","*","*","*","*","*"],
+            ["4","5","6","*","*","*","*","*","*"],
+            ["7","8","1","*","*","*","*","*","*"],  # duplicate 1 in top-left box
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+            ["*","*","*","*","*","*","*","*","*"],
+        ]
+
+        validator = SudokuPuzzleValidator(grid)
+        self.assertIs(validator.validate_boxes(), False)
+
+    def test_validate_boxes_valid_scattered(self):
+        grid = [
+            ["5","3","*","*","7","*","*","*","*"],
+            ["6","*","*","1","9","5","*","*","*"],
+            ["*","9","8","*","*","*","*","6","*"],
+            ["8","*","*","*","6","*","*","*","3"],
+            ["4","*","*","8","*","3","*","*","1"],
+            ["7","*","*","*","2","*","*","*","6"],
+            ["*","6","*","*","*","*","2","8","*"],
+            ["*","*","*","4","1","9","*","*","5"],
+            ["*","*","*","*","8","*","*","7","9"],
+        ]
+
+        validator = SudokuPuzzleValidator(grid)
+        self.assertTrue(validator.validate_boxes())
+
+    def test_validate_boxes_invalid_scattered(self):
+        grid = [
+            ["5","3","*","*","7","*","*","*","*"],
+            ["6","*","*","1","9","5","*","*","*"],
+            ["*","9","8","*","*","*","*","6","*"],
+            ["8","*","*","*","6","*","*","*","3"],
+            ["4","*","*","8","*","3","*","*","1"],
+            ["7","*","*","*","2","*","*","*","6"],
+            ["*","6","*","*","*","*","2","8","*"],
+            ["*","*","*","4","1","9","*","2","5"],  # duplicate 2 in bottom-right box
+            ["*","*","*","*","8","*","*","7","9"],
+        ]
+
+        validator = SudokuPuzzleValidator(grid)
+        self.assertIs(validator.validate_boxes(), False)

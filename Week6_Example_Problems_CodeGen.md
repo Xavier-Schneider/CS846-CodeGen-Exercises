@@ -6,11 +6,11 @@
 
 Problems A, B, and C will be completed in Python. Problem D may be completed in any language.
 
-Throughout these exercises you will be asked to run unit tests. For example, to test problem A you will run:
+Throughout these exercises you will be asked to run unit tests. For example, to test problem A you will run the command:
 ```
 python3 -m unittest tests.test_problem_A
 ```
-Alternatively, you may have installed the python command as: 'py' or 'python' instead of 'python3'. Make sure to adjust your commands accordingly.
+Alternatively, you may have installed the python as: 'py' or 'python' instead of 'python3'. Make sure to adjust your commands accordingly.
 
 **GitHub Repository:**
 https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
@@ -20,7 +20,52 @@ Please select **Grok Code Fast 1**
 
 ## 1. Example Problems
 
-### Problem A Exam Score Analysis - Concept Tested: Dependencies
+### Problem A: Sudoku Puzzle Validator (15 minutes)
+
+**Description:**  
+IMPORTANT: For problem A, pay close attention to how Copilot tries to test its own output.
+
+A [Sudoku puzzle](https://en.wikipedia.org/wiki/Sudoku) is a puzzle in which a user is given a 9x9 grid partially filled in with numbers 1-9. To complete the puzzle, the user must fill in each row, column, and 3x3 sub-square so that each contains exactly one number from 1-9. For a partially-completed puzzle, each row, column, and 3x3 sub-grid must contain at most one instance of numbers 1-9. In our case, an empty square will be represented by the character ‘*’. Your job is to write Python code to validate if a given Sudoku puzzle is valid or not.
+
+To begin, run the following test command:
+
+```
+python3 -m unittest tests.test_problem_A
+```
+
+You should see 15 failing tests. If you see 15 failing tests, you can move on to problem A_1. (Every subproblem should fix 5 tests.)
+
+**Starter Code:**  
+https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/Problems/problem_A.py
+https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/tests/test_problem_A.py
+
+### Problem A_1: Validate rows
+
+**Task Description:**  
+Write Python code for the ‘validate_rows’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no row contains duplicate numbers and  ‘False’ if at least one does.
+
+### Problem A_2: Validate columns
+
+**Task Description:**  
+Write Python code for the ‘validate_cols’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no column contains duplicate numbers and  ‘False’ if at least one does.
+
+### Problem A_3: Validate sub-grids
+
+**Task Description:**  
+Write Python code for the ‘validate_boxes’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no 3x3 sub-grid contains duplicate numbers and  ‘False’ if at least one does.
+
+**Test**
+Test your solution with:
+
+```
+python3 -m unittest tests.test_problem_A
+```
+
+You should now see all tests passing. Hooray!
+
+---
+
+### Problem B Exam Score Analysis (10 minutes)
 
 **Task Description:**  
 You are given an iterable of student exam records.
@@ -102,151 +147,33 @@ Example output shape:
 }
 
 **Starter Code:**
-https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/blob/main/Problems/problem_A.py
+https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/blob/main/Problems/problem_B.py
 
 **Test**
 Test your solution with:
 ```
-python3 -m unittest tests.test_problem_A
+python3 -m unittest tests.test_problem_B
 ```
 ---
 
-### Problem B: Sudoku Puzzle Validator - Concept Tested: Test Driven Development
-
-**Description:** 
-IMPORTANT: For problem B, pay close attention to how Copilot tries to test its own output.
-
-A [Sudoku puzzle](https://en.wikipedia.org/wiki/Sudoku) is a puzzle in which a user is given a 9x9 grid partially filled in with numbers 1-9. To complete the puzzle, the user must fill in each row, column, and 3x3 sub-square so that each contains exactly one number from 1-9. For a partially-completed puzzle, each row, column, and 3x3 sub-grid must contain at most one instance of numbers 1-9. In our case, an empty square will be represented by the character ‘*’. Your job is to write Python code to validate if a given Sudoku puzzle is valid or not.
-
-To begin, run the following test command:
-
-```
-python3 -m unittest tests.test_problem_B
-```
-
-You should see 15 failing tests. If you see 15 failing tests, you can move on to problem B_1. (Every subproblem should fix 5 tests.)
-
-**Starter Code:**  
-https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/Problems/problem_B.py
-https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/tests/test_problem_B.py
-
-### Problem B_1: Validate rows
+### Problem C: INI Config Validator + Normalizer (10 minutes)
 
 **Task Description:**  
-Write Python code for the ‘validate_rows’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no row contains duplicate numbers and  ‘False’ if at least one does.
-
-### Problem B_2: Validate columns
-
-**Task Description:**  
-Write Python code for the ‘validate_cols’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no column contains duplicate numbers and  ‘False’ if at least one does.
-
-### Problem B_3: Validate sub-grids
-
-**Task Description:**  
-Write Python code for the ‘validate_boxes’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no 3x3 sub-grid contains duplicate numbers and  ‘False’ if at least one does.
-
-**Test**
-Test your solution with:
-
-```
-python3 -m unittest tests.test_problem_B
-```
-
-You should now see all tests passing. Hooray!
-
----
-
-### Problem C: INI Config Validator + Normalizer - Concept Tested: I/O
-
-Description:
 INI files are a common way to store simple configuration using sections and key=value pairs. In this problem, you will implement a restricted INI parser that can both validate an INI-like text input and normalize it into a canonical format.
 
-Your goal is to write Python code that takes an INI config string and:
+Your goal is to write Python code that takes an INI config string and outputs a normalized INI string with sorted sections/keys and standardized formatting.
 
-Validates it according to the rules in Problems/problem_C.py
+**Starter Code:**
+https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/Problems/problem_C.py
 
-Parses it into an internal mapping
-
-Outputs a normalized INI string with sorted sections/keys and standardized formatting
-
-To begin, start by downloading the code from here: https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
-
-Once you’ve downloaded the code, run the following test command:
+**Test**
+Test your solution with:
 
 ```
 python3 -m unittest tests.test_problem_C
 ```
 
-You should see failing tests. If you see failing tests, you can move on to problem C_1.
-
-
-### Problem C_1: Validate + normalize a single section
-
-Task Description:
-Implement `problem_C(text)` in `Problems/problem_C.py` so that it can correctly handle: A single section like `[db]`, Multiple `key=value` lines inside that section, Whitespace around keys/values, Blank lines, Trailing comments (`;` or `#`)
-
-Return the normalized output using the canonical formatting rules.
-
-Re-run the test command:
-
-```
-python3 -m unittest tests.test_problem_C.TestProblemCValid
-```
-
-You should now see fewer failing tests. If the remaining failures mention sorting or multiple sections, you can move on to problem C_2.
-
-### Problem C_2: Sorting + multi-section normalization
-
-Task Description:
-Extend `problem_C(text)` so that it can correctly handle multiple sections, and ensure the normalized output satisfies:
-
-Sections sorted lexicographically
-
-Keys sorted lexicographically within each section
-
-Exactly one blank line between sections
-
-Output ends with a final newline `\n`
-
-Re-run the test command:
-
-```
-python3 -m unittest tests.test_problem_C.TestNormalizeIni
-```
-
-You should now see fewer failing tests. If the remaining failures mention duplicates or invalid input, move on to problem C_3.
-
-### Problem C_3: Error handling (invalid inputs)
-
-Task Description:
-Update `problem_C(text)` so that it raises ValueError with a clear message whenever the input is invalid. Your error message must include:
-* One of the required error code substrings:
-  * `KEY_OUTSIDE_SECTION`
-  * `INVALID_SECTION`
-  * `DUPLICATE_SECTION`
-  * `INVALID_KEY`
-  * `DUPLICATE_KEY`
-  * `INVALID_LINE`
-* The 1-based line number substring like: `line 3`
-Examples of invalid inputs you must detect:
-* Key-value line before any section header
-* Invalid section name (wrong characters)
-* Duplicate section header
-* Invalid key name (uppercase or illegal format)
-* Duplicate key within a section
-* Any non-empty non-comment line that is not a section header or key=value
-
-Re-run the test command:
-
-```
-python3 -m unittest tests.test_problem_C.TestProblemCInvalid
-```
-You should now see all tests passing. Hooray!
-
-
----
-
-### Problem D: Building a Personal Website - Concept Tested: Full Stack Development
+### Problem D: Building a Personal Website (10 minutes)
 
 **Task Description:**  
 Every graduate student needs a website. Make one! You may use any technology available to you.

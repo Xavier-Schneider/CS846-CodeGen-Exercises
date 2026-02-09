@@ -14,37 +14,7 @@
 
 ## 1. Guidelines For Code Generation / Planning
 
-### Guideline 1: Explicitly specify required external libraries/packages and their purpose.
-**Description:**  
-When you want Copilot to generate code that relies on non-standard libraries, explicitly specify which packages to use and what each is for, so the generated code imports and uses them correctly \[7\]. 
-
-**Reasoning:**  
-When requirements are vague, LLMs may omit imports, or implement inefficient solutions. \[7\] found that explicitly naming dependencies helps generate more accurate and compatible code by reducing ambiguity and guiding the model toward the intended implementation approach.
-
-**Good Example:**
-"Use NumPy for numerical array operations" or "use pandas for tabular data manipulation".
-
-**Bad Example:**
-"Write code that computes the sum of each column in a csv."
-
----
-
-### Guideline 2:  Explicitly specify the input type and output format.
-**Description:**
-Explicitly state what the function takes as input and what it must return, including the exact data type and representation \[7\]. For code-generation tasks ambiguity about input/output format may leads to incorrect implementations even if the internal logic is mostly right \[7\].
-
-**Reasoning:**  
-Without explicit input and output, the LLM may perform any unexpected behavior such as return a dict instead of a string, print output instead of returning, or normalize differently than tests expect.
-
-**Good Example**
-"Write a Python function average(numbers: list[float]) -> float"
-
-**Bad Example**
-"Write a function that processes a list of numbers and gives the result."
-
----
-
-### Guideline 3:  Specify any project specific Tool and Workflow Execution Mechanics
+### Guideline 1:  Specify any project specific Tool and Workflow Execution Mechanics
 **Description:**  
 Be specific, not just about whether a tool in your workflow should be run, but also about the specific command to run it. If you want the LLM to run a unit test, don’t just tell it to run tests; give it the exact command it should use to run the test \[8\].
 
@@ -63,7 +33,52 @@ pnpm -C web test -- --runInBand."
 
 ---
 
-### Guideline 4: Work in Short, Iterative Cycles
+### Guideline 2: Add algorithmic details when logic is complex \[7\]  
+**Description:**  
+If you know additional algorithmic information about a specific problem, make sure to include that information in your prompt. This will help guide the code generation to a cleaner and/or more optimal solution \[7\].
+
+**Reasoning:**  
+When a problem admits multiple valid solutions, an LLM will often default to the simplest or most general approach unless guided otherwise. This can result in code that is correct but not optimal in terms of time complexity, structure, or clarity. By specifying relevant algorithmic details—such as the desired technique, performance expectations, and preferred control flow—you reduce ambiguity and communicate which design qualities matter. This helps the model choose an approach that not only meets efficiency goals but also produces cleaner logic, more predictable control flow, and improved readability, making the resulting code easier to follow, maintain, and verify.
+
+**Good Example:**\  
+If as part of your algorithm you need to search for a number in a sorted list, the LLM may write a linear-time algorithm, assuming that the list size is small, or unordered, and because it’s simpler to write. Specifically, telling it to write a binary search algorithm that runs in O(log(n)) time helps steer the LLM toward producing more efficient software.
+
+**Bad Example:**\
+Write a function to search for a number in the list.
+
+---
+
+### Guideline 3: Specify required external libraries/packages and their purpose.
+**Description:**  
+When you want Copilot to generate code that relies on non-standard libraries, explicitly specify which packages to use and what each is for, so the generated code imports and uses them correctly \[7\]. 
+
+**Reasoning:**  
+When requirements are vague, LLMs may omit imports, or implement inefficient solutions. \[7\] found that explicitly naming dependencies helps generate more accurate and compatible code by reducing ambiguity and guiding the model toward the intended implementation approach.
+
+**Good Example:**
+"Use NumPy for numerical array operations" or "use pandas for tabular data manipulation".
+
+**Bad Example:**
+"Write code that computes the sum of each column in a csv."
+
+---
+
+### Guideline 4:  Specify the input type and output format.
+**Description:**
+Explicitly state what the function takes as input and what it must return, including the exact data type and representation \[7\]. For code-generation tasks ambiguity about input/output format may leads to incorrect implementations even if the internal logic is mostly right \[7\].
+
+**Reasoning:**  
+Without explicit input and output, the LLM may perform an unexpected behavior such as return a dict instead of a string, print output instead of returning, or normalize differently than tests or callers expect.
+
+**Good Example**
+"Write a Python function average(numbers: list[float]) -> float"
+
+**Bad Example**
+"Write a function that processes a list of numbers and gives the result."
+
+---
+
+### Guideline 5: Work in Short, Iterative Cycles
 
 **Description:**\
 Break the interaction into small, repeated steps: generate -> review -> refine -> regenerate, rather than trying to build an entire system in a single prompt \[8\]\[9\].
@@ -82,30 +97,30 @@ In one step, generate the full architecture, implementation, tests, documentatio
 
 ---
 
-### Guideline 5: Add algorithmic details when logic is complex \[7\]  
-**Description:**  
-If you know additional algorithmic information about a specific problem, make sure to include that information in your prompt. This will help guide the code generation to a cleaner and/or more optimal solution \[7\].
-
-**Reasoning:**  
-An LLM may know an efficient approach to a given algorithm or a certain way of solving it that makes the code cleaner, but choose to elicit code that is less optimal or less clean. Letting the LLM know which approach to use helps steer it in the correct direction.
-
-**Good Example:**\  
-If you’re writing an algorithm to search for a number in a sorted list, the LLM may write a linear-time algorithm, assuming that the list size is small, or unordered, and because it’s simpler to write. Specifically, telling it to write a binary search algorithm that runs in O(log(n)) time helps steer the LLM toward producing more efficient software.
-
-**Bad Example:**\
-Write a function to search for a number in a sorted list.
-
----
-
 ## 2. Guideline to use in each problem
 
-Problem A: Guideline 1 (hint: look under problems -> misc -> src -> library.py)
+Problem A_1:
+* Guideline 1 (hint: provide the command that runs the test to Copilot 'python3 -m unittest tests.test_problem_A'") 
 
-Problem B: Guideline 3 (hint: provide the command that runs the test to Copilot 'python3 -m unittest tests.test_problem_B'") and Guideline 5 
+Problem A_2:
+* Guideline 1 (hint: same as above)
 
-Problem C: Guideline 2 and Guideline 3 (hint: the stages of INI processing are preprocessing -> parsing/validation -> rendering. Input is a raw INI string, output is a normalized INI string.)
+Problem A_3:
+* Guideline 1 (hint: same as above)
+* Guideline 2 (hint: this method only needs 2 nested loops - you can divide each row and column by 3 to check which sub-grid you are in)
 
-Problem D: Guideline 1 (hint: flask is a simple python module for deploying websites), (hint: here are some great graduate student websites: https://kuwingfung.github.io/, https://benjaminschneider.ca/ and Copilot can access the internet, so... you have permission to give them to Copilot as examples), Guideline 4 (Don't ask Copilot to do the previous 2 steps at once!)
+Problem B:
+* Guideline 1 (hint: same as above)
+* Guideline 3 (hint: look under problems -> misc -> src -> library.py)
+
+Problem C:
+* Guideline 1 (hint: same as above)
+* Guideline 4 (hint: output format requires a trailing '\n')
+* Guideline 2 (hint: INI Config Validator + Normalizer can (and should!) be split into two helper functions)
+
+Problem D:
+* Guideline 3 (hint: flask is a simple python module for deploying websites), (hint: here are some great graduate student websites: https://kuwingfung.github.io/, https://benjaminschneider.ca/ and Copilot can access the internet, so... you have permission to give them to Copilot as examples)
+* Guideline 5 (Don't ask Copilot to do the previous 2 steps at once!)
 
 ## 2. References
 
