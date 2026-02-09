@@ -148,6 +148,7 @@ The good example makes use of guideline 1, i.e. it used the provided library. Th
 **Evaluation Description:**  
 * The code should return True in the validate_rows method if all rows are valid. False otherwise
 * The code should pass the first 5 automated tests (correctness)
+* The agent should correctly, and promptly execute the test command corresponding to problem B.
 
 **Bad example**
 
@@ -191,6 +192,7 @@ Both the “Bad” and “Good” examples produce identical code, but in the ch
 **Evaluation Description:**  
 * The code should return True in the validate_cols method if all columns are valid. False otherwise
 * The code should pass the next 5 automated tests (correctness)
+* The agent should correctly, and promptly execute the test command corresponding to problem B.
 
 **Bad example**
 
@@ -236,6 +238,7 @@ Both the “Bad” and “Good” examples produce very similar code, but in the
 **Evaluation Description:**  
 * The code should return True in the validate_boxes method if all sub-grids are valid. False otherwise
 * The code should pass the last 5 automated tests (correctness)
+* The agent should correctly, and promptly execute the test command corresponding to problem B.
 
 **Bad example**
 
@@ -458,7 +461,7 @@ After applying the guideline, the code becomes more readable and interpretable w
 
 ### Problem D: Building a personal website
 
-Note: In the following examples Copilot is instructed to create a website. Rather than include all Copilot output, we simply document the resulting website as a picture since the Copilot logs/generated code is too long, and does not adequately demonstrate the final result.
+Note: In the following examples Copilot is instructed to create a website. Rather than include all Copilot output, we simply document the resulting website as a picture since the Copilot logs/generated code is overly long and complex. We find that an image is sufficient to demonstrate the results.
 
 **Evaluation Description:**
 

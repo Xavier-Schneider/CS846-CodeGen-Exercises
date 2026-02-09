@@ -6,6 +6,12 @@
 
 Problems A, B, and C will be completed in Python. Problem D may be completed in any language.
 
+Throughout these exercises you will be asked to run unit tests. For example, to test problem A you will run:
+```
+python3 -m unittest tests.test_problem_A
+```
+Alternatively, you may have installed the python command as: 'py' or 'python' instead of 'python3'. Make sure to adjust your commands accordingly.
+
 **GitHub Repository:**
 https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
@@ -14,7 +20,7 @@ Please select **Grok Code Fast 1**
 
 ## 1. Example Problems
 
-### Problem A Exam Score Analysis:
+### Problem A Exam Score Analysis - Concept Tested: Dependencies
 
 **Task Description:**  
 You are given an iterable of student exam records.
@@ -99,61 +105,49 @@ Example output shape:
 https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/blob/main/Problems/problem_A.py
 
 **Test**
-Test your solution with: python3 -m unittest tests.test_problem_A
-
+Test your solution with:
+```
+python3 -m unittest tests.test_problem_A
+```
 ---
 
-### Problem B: Sudoku Puzzle Validator
+### Problem B: Sudoku Puzzle Validator - Concept Tested: Test Driven Development
 
-**Description:**  
+**Description:** 
+IMPORTANT: For problem B, pay close attention to how Copilot tries to test its own output.
+
 A [Sudoku puzzle](https://en.wikipedia.org/wiki/Sudoku) is a puzzle in which a user is given a 9x9 grid partially filled in with numbers 1-9. To complete the puzzle, the user must fill in each row, column, and 3x3 sub-square so that each contains exactly one number from 1-9. For a partially-completed puzzle, each row, column, and 3x3 sub-grid must contain at most one instance of numbers 1-9. In our case, an empty square will be represented by the character ‘*’. Your job is to write Python code to validate if a given Sudoku puzzle is valid or not.
 
-To begin, start by downloading the code from here: https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
+To begin, run the following test command:
 
-Once you’ve downloaded the code, run the following test command:
 ```
 python3 -m unittest tests.test_problem_B
 ```
 
-You should see 15 failing tests. If you see 15 failing tests, you can move on to problem B_1.
+You should see 15 failing tests. If you see 15 failing tests, you can move on to problem B_1. (Every subproblem should fix 5 tests.)
 
 **Starter Code:**  
-https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises (The files required are Problems/problem_B.py and tests/test_problem_B.py)
+https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/Problems/problem_B.py
+https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/tests/test_problem_B.py
 
 ### Problem B_1: Validate rows
 
 **Task Description:**  
 Write Python code for the ‘validate_rows’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no row contains duplicate numbers and  ‘False’ if at least one does.
 
-Re-run the test command:
-```
-python3 -m unittest tests.test_problem_B
-```
-
-You should now see only 10 failing tests. If you see 10 failing tests, you can move on to problem B_2.
-
----
-
 ### Problem B_2: Validate columns
 
 **Task Description:**  
 Write Python code for the ‘validate_cols’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no column contains duplicate numbers and  ‘False’ if at least one does.
-
-Re-run the test command:
-```
-python3 -m unittest tests.test_problem_B
-```
-
-You should now see only 5 failing tests. If you see 5 failing tests, you can move on to problem B_3.
-
----
 
 ### Problem B_3: Validate sub-grids
 
 **Task Description:**  
 Write Python code for the ‘validate_boxes’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no 3x3 sub-grid contains duplicate numbers and  ‘False’ if at least one does.
 
-Re-run the test command:
+**Test**
+Test your solution with:
+
 ```
 python3 -m unittest tests.test_problem_B
 ```
@@ -162,7 +156,7 @@ You should now see all tests passing. Hooray!
 
 ---
 
-### Problem C: INI Config Validator + Normalizer
+### Problem C: INI Config Validator + Normalizer - Concept Tested: I/O
 
 Description:
 INI files are a common way to store simple configuration using sections and key=value pairs. In this problem, you will implement a restricted INI parser that can both validate an INI-like text input and normalize it into a canonical format.
@@ -252,7 +246,7 @@ You should now see all tests passing. Hooray!
 
 ---
 
-### Problem D: Building a personal website
+### Problem D: Building a Personal Website - Concept Tested: Full Stack Development
 
 **Task Description:**  
 Every graduate student needs a website. Make one! You may use any technology available to you.

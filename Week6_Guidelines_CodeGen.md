@@ -101,11 +101,11 @@ Write a function to search for a number in a sorted list.
 
 Problem A: Guideline 1 (hint: look under problems -> misc -> src -> library.py)
 
-Problem B: Guideline 3 (hint: the command to run the test is 'python3 -m unittest tests.test_problem_B'") and Guideline 5 
+Problem B: Guideline 3 (hint: provide the command that runs the test to Copilot 'python3 -m unittest tests.test_problem_B'") and Guideline 5 
 
 Problem C: Guideline 2 and Guideline 3 (hint: the stages of INI processing are preprocessing -> parsing/validation -> rendering. Input is a raw INI string, output is a normalized INI string.)
 
-Problem D: Guideline 1 (hint: flask is a simple python module for deploying websites), (hint: here are some great graduate student websites... https://kuwingfung.github.io/, https://benjaminschneider.ca/ and Copilot can access the internet, so... you have permission to give them to Copilot as examples), Guideline 4 (Don't ask Copilot to do the previous 2 steps at once!)
+Problem D: Guideline 1 (hint: flask is a simple python module for deploying websites), (hint: here are some great graduate student websites: https://kuwingfung.github.io/, https://benjaminschneider.ca/ and Copilot can access the internet, so... you have permission to give them to Copilot as examples), Guideline 4 (Don't ask Copilot to do the previous 2 steps at once!)
 
 ## 2. References
 
