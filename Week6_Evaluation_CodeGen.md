@@ -458,6 +458,8 @@ After applying the guideline, the code becomes more readable and interpretable w
 
 ### Problem D: Building a personal website
 
+Note: In the following examples Copilot is instructed to create a website. Rather than include all Copilot output, we simply document the resulting website as a picture since the Copilot logs/generated code is too long, and does not adequately demonstrate the final result.
+
 **Evaluation Description:**
 
 * The website is compelling (looks good)
@@ -467,44 +469,25 @@ After applying the guideline, the code becomes more readable and interpretable w
 
 Context: (No context given - empty folder)
 
-Prompt: build a website for a graduate student named xavier schneider who goes to the university of waterloo. The website needs to be hosted on a server. Include an image of a rabbit on the website.
+Prompt: build a website for a graduate student named Xavier Schneider who goes to the University of Waterloo. The website needs to be hosted on a server. Include an image of a rabbit on the website.
 
-Copilot: ... (output too large to include, see end result)
-
-result:
-
-![Bad example](bad.png)
+Copilot: ![Bad example](bad.png)
 
 **Good Example**
 
 Context: (No context given - empty folder)
 
-Prompt: Create a simple python app that serves a static webpage using flask. Manage your dependencies in a virtual environment.
+Prompt1: Create a simple python app that serves a static webpage using flask. Manage your dependencies in a virtual environment.
 
-Copilot: ... (output too large to include, see end result)
+Prompt2: Use the html/javascript from this website as a base for my own. https://kuwingfung.github.io/
 
-Prompt: Use the html/javascript from this website as a base for my own. https://kuwingfung.github.io/
+Prompt3: Change it so that it's about Xavier Schneider, and a bunch of made up publications.
 
-Copilot: ... (output too large to include, see end result)
+Prompt4: Use a picture of a rabbit instead of the human.
 
-Prompt: Change it so that it's about Xavier Schneider, and a bunch of made up publications.
-
-Copilot: ... (output too large to include, see end result)
-
-Prompt: Use a picture of a rabbit instead of the human.
-
-result:
-
-![Good example](good.png)
+Copilot: ![Good example](good.png)
 
 **Analysis**
-The good example makes use of guidelines 1, 5 and 6. As a result, the final website is much more compelling visually and in terms of content. (note: in this particular example, we use other websites as examples - examples like this must be used with permission, or else simply draw inspiration from these websites.)
-
----
-
-## 3. References
-
-[1]  
-[2] 
+The good example makes use of guidelines 1 and 4. As a result, the final website is much more compelling visually and in terms of content. This is because a solid architectural foundation was established with guideline 1 (use flask), and the user iterated with Copilot to create the website, rather than creating it in a single prompt.
 
 ---

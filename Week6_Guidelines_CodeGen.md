@@ -14,99 +14,86 @@
 
 ## 1. Guidelines For Code Generation / Planning
 
-### Guideline 1: Make requirements explicit in terms of needed packages or libraries, and explain what to use them for.
+### Guideline 1: Explicitly specify required external libraries/packages and their purpose.
 **Description:**  
-Clearly specify all required libraries, frameworks, tools, and dependencies in the prompt, and explain what each one should be used for. Instead of only naming a package, describe its role in the solution.
+When you want Copilot to generate code that relies on non-standard libraries, explicitly specify which packages to use and what each is for, so the generated code imports and uses them correctly \[7\]. 
 
 **Reasoning:**  
-When requirements are vague, LLMs may choose the wrong tools, omit imports, or implement inefficient solutions. The study found that explicitly naming dependencies helps generate more accurate and compatible code by reducing ambiguity and guiding the model toward the intended implementation approach.
+When requirements are vague, LLMs may omit imports, or implement inefficient solutions. \[7\] found that explicitly naming dependencies helps generate more accurate and compatible code by reducing ambiguity and guiding the model toward the intended implementation approach.
 
-**Example:**  
+**Good Example:**
 "Use NumPy for numerical array operations" or "use pandas for tabular data manipulation".
+
+**Bad Example:**
+"Write code that computes the sum of each column in a csv."
 
 ---
 
-### Guideline 2:  Always clearly specify the exact input type and exact output format.
+### Guideline 2:  Explicitly specify the input type and output format.
 **Description:**
-Always explicitly state what the function takes as input and what it must return, including the exact data type and representation. For code-generation tasks ambiguity about input/output format may leads to incorrect implementations even if the internal logic is mostly right.
+Explicitly state what the function takes as input and what it must return, including the exact data type and representation \[7\]. For code-generation tasks ambiguity about input/output format may leads to incorrect implementations even if the internal logic is mostly right \[7\].
 
 **Reasoning:**  
 Without explicit input and output, the LLM may perform any unexpected behavior such as return a dict instead of a string, print output instead of returning, or normalize differently than tests expect.
 
+**Good Example**
+"Write a Python function average(numbers: list[float]) -> float"
 
-**Example:**  
-Instead of saying: 
-
-"Write a function to parse an INI file."
-
-Say:
-
-"Complete `func(text)` where text is a string containing INI config.
-The function must return a normalized INI string with sorted sections/keys and a final newline.
-Raise ValueError on invalid input."
+**Bad Example**
+"Write a function that processes a list of numbers and gives the result."
 
 ---
 
-### Guideline 3:  Specify Tool and Workflow Execution Mechanics
+### Guideline 3:  Specify any project specific Tool and Workflow Execution Mechanics
 **Description:**  
-Be specific, not just about whether a tool in your workflow should be run, but also about the specific command to run it. If you want the LLM to run a unit test, don’t just tell it to run tests; give it the exact command it should use to run the test.
+Be specific, not just about whether a tool in your workflow should be run, but also about the specific command to run it. If you want the LLM to run a unit test, don’t just tell it to run tests; give it the exact command it should use to run the test \[8\].
 
 **Reasoning:**  
-If you don’t specify how the LLM should execute a tool, it may end up spinning its wheels, making multiple attempts to get it right. It may even give up if, after many attempts, it can’t guess the correct command.
+If you don’t specify how the LLM should use a tool, it may end up spinning its wheels, making multiple attempts to get it right. It may even give up if, after many attempts, it can’t guess the correct command.
 
-**Example:**  
-Instead of saying at the end of your prompt:  
+**Good Example**
+"From the repo root, run the backend unit tests with:
+poetry run pytest tests/unit -q
+If any tests fail, paste the full failure output and then fix the code so the suite passes.
+After that, run the frontend tests with:
+pnpm -C web test -- --runInBand."
 
-"When you are finished, please run tests."
-
-Say:
-
-"When you are finished, please run tests using the test command ‘python3 -m unittest tests.test_problem_B’"
-
----
-
-### Guideline 4: Break large requests into multiple smaller requests
-**Description:**
-When the request is large or multi-part, explicitly decompose it into a sequence of smaller requests. Each request should have a clear goal and a concrete output (e.g., "define interfaces," "write parsing function," "add tests," "run example"). If relevant, specify what "done" looks like for each step.
-
-**Reasoning:**
-LLMs are more reliable when they can focus on one objective at a time. Step-by-step decomposition reduces omissions (forgotten edge cases, missing imports, unhandled error paths), lowers the chance of inconsistent design decisions, and improves overall coherence—especially for longer code generation tasks. It also makes it easier to verify correctness at each stage and to iterate when requirements change.
-
-**Example:**
-Prompt: "Build a log-processing tool, (1): define the input format and output schema", "(2) implement the parser and normalization logic", "(3) add aggregation + reporting functions", "(4) write unit tests and provide a small demo run with sample logs."
-
-
-### Guideline 5: Use large scale examples from the domain
-**Description:**
-Include examples drawn from the target domain, and make them large-scale: representative volumes, realistic structure, and real constraints the system will face (schemas, workflows, limits, edge cases, etc.). Prefer examples that mirror real-world tools or systems the model should emulate, and make them specific enough to constrain interpretation (e.g., “mirror this Excel behavior,” “follow this app’s interaction model,” “match this API structure”).
-
-**Reasoning:**
-Small or abstract examples don’t communicate how a system behaves under realistic conditions. Large, domain-faithful examples clarify expectations around structure, conventions, and edge cases. Referencing familiar, real-world functionality (like Excel) anchors interpretation and reduces ambiguity about how features should behave in practice.
-
-**Example:**
-“If you’re generating a spreadsheet-processing feature, mirror how Excel handles real workflows. For instance: provide a table with ~5,000 rows containing columns like Date, Region, Product, Revenue, and Cost, and specify behavior such as:
-
-Support formulas similar to Excel (e.g., =SUM(E2:E5001), =AVERAGEIF(B:B,"West",E:E)).
-
-Handle sorting and filtering across large datasets.
-
-Preserve relative vs. absolute references (like A1 vs. $A$1).
-
-Include edge cases such as empty cells, text in numeric columns, and very large values.
-
-This signals that the output should behave like a real spreadsheet tool at scale, not just perform simple calculations on a small sample.”
+**Bad Example**
+"Run the tests to make sure everything still works, and fix anything that fails."
 
 ---
 
-### Guideline 6: Add algorithmic details when logic is complex \[7\]  
+### Guideline 4: Work in Short, Iterative Cycles
+
+**Description:**\
+Break the interaction into small, repeated steps: generate -> review -> refine -> regenerate, rather than trying to build an entire system in a single prompt \[8\]\[9\].
+
+**Reasoning:**\
+Frequent, incremental updates improve accuracy and alignment. Short feedback loops help surface issues earlier, make corrections easier, and give you more control over how the solution evolves.
+
+**Good Example:**\
+Iteration 1: Propose the data model (entities, fields, relationships).
+Iteration 2: Draft the API endpoints + request/response schemas.
+Iteration 3: Implement one endpoint end-to-end.
+Iteration 4: Add integration tests and handle edge cases.
+
+**Bad Example:**\
+In one step, generate the full architecture, implementation, tests, documentation, and optimizations for the entire system.
+
+---
+
+### Guideline 5: Add algorithmic details when logic is complex \[7\]  
 **Description:**  
-If you know additional algorithmic information about a specific problem, make sure to include that information in your prompt. This will help guide the code generation to a cleaner and/or more optimal solution.
+If you know additional algorithmic information about a specific problem, make sure to include that information in your prompt. This will help guide the code generation to a cleaner and/or more optimal solution \[7\].
 
 **Reasoning:**  
 An LLM may know an efficient approach to a given algorithm or a certain way of solving it that makes the code cleaner, but choose to elicit code that is less optimal or less clean. Letting the LLM know which approach to use helps steer it in the correct direction.
 
-**Example:**  
-If you’re writing an algorithm to search for a number in a sorted list, the LLM may write a linear-time algorithm, assuming that the list size is small and because it’s simpler to write. Specifically, telling it to write a binary search algorithm that runs in O(log(n)) time helps steer the LLM toward producing more efficient software.
+**Good Example:**\  
+If you’re writing an algorithm to search for a number in a sorted list, the LLM may write a linear-time algorithm, assuming that the list size is small, or unordered, and because it’s simpler to write. Specifically, telling it to write a binary search algorithm that runs in O(log(n)) time helps steer the LLM toward producing more efficient software.
+
+**Bad Example:**\
+Write a function to search for a number in a sorted list.
 
 ---
 
@@ -114,13 +101,11 @@ If you’re writing an algorithm to search for a number in a sorted list, the LL
 
 Problem A: Guideline 1 (hint: look under problems -> misc -> src -> library.py)
 
-Problem B: Guideline 3 and Guideline 6
+Problem B: Guideline 3 (hint: the command to run the test is 'python3 -m unittest tests.test_problem_B'") and Guideline 5 
 
 Problem C: Guideline 2 and Guideline 3 (hint: the stages of INI processing are preprocessing -> parsing/validation -> rendering. Input is a raw INI string, output is a normalized INI string.)
 
-Now it's time to test what you've learned!
-
-Problem D: Guideline 1 (hint: flask is a simple python module for deploying websites), Guideline 5 (here are some great graduate student websites... https://kuwingfung.github.io/, https://benjaminschneider.ca/ and Copilot can access the internet, so... (you have permission to use them as examples)), Guideline 4 (Don't ask copilot to do the previous 2 steps at once!) 
+Problem D: Guideline 1 (hint: flask is a simple python module for deploying websites), (hint: here are some great graduate student websites... https://kuwingfung.github.io/, https://benjaminschneider.ca/ and Copilot can access the internet, so... you have permission to give them to Copilot as examples), Guideline 4 (Don't ask Copilot to do the previous 2 steps at once!)
 
 ## 2. References
 
@@ -134,5 +119,5 @@ Problem D: Guideline 1 (hint: flask is a simple python module for deploying webs
 \[8\] Orosz, G., & Osmani, A. "How AI-assisted coding will change software engineering: hard truths" Pragmatic Engineer Blog\
 \[9\] Code Coup "OpenSpec: A Spec-Driven Workflow for AI Coding Assistants (No API Keys Needed)" Medium
 
-These Guidelines were made with the help of GPT 5.2
+These Guidelines were created with the help of GPT 5.2
 ---
