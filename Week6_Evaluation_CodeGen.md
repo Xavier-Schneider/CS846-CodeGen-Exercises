@@ -55,7 +55,7 @@ def validate_rows(self):
 ```
 
 **Analysis**
-Both the “Bad” and “Good” examples produce identical code, but in the chat window, it repeatedly attempts to call a test command (even though the prompt doesn’t mention tests) until it gets it right. With the “Good” example, Grok executes the test command flawlessly the first time.
+Both the “Bad” and “Good” examples produce identical code, but in the chat window, it repeatedly attempts to call a test command (even though the prompt doesn’t mention tests) until it gets it right. With the “Good” example, Grok executes the test command flawlessly the first time (guideline 1).
 
 ---
 
@@ -103,7 +103,7 @@ def validate_cols(self):
 ```
 
 **Analysis**
-Both the “Bad” and “Good” examples produce very similar code, but in the chat window, Grok repeatedly attempts to run a test command (even though the prompt doesn’t mention tests) until it succeeds. With the “Good” example, Grok executes the test command flawlessly the first time.
+Both the “Bad” and “Good” examples produce very similar code, but in the chat window, Grok repeatedly attempts to run a test command (even though the prompt doesn’t mention tests) until it succeeds. With the “Good” example, Grok executes the test command flawlessly the first time (guideline 1).
 
 ---
 
@@ -160,7 +160,7 @@ def validate_boxes(self):
 ```
 
 **Analysis**
-In the “Bad” example, Grok produces code with four nested loops instead of two. If the prompter knows about this problem ahead of time, they can leverage that knowledge to get the model to output a solution using only two nested loops and the technique of dividing the row and column by 3 to perform a lookup to determine whether duplicate numbers exist in the same sub-grid. Additionally, because the model was explicitly told the test command, Grok was able to execute it in one shot rather than making many failed attempts. 
+In the “Bad” example, Grok produces code with four nested loops instead of two. If the prompter knows about this problem ahead of time, they can leverage that knowledge to get the model to output a solution using only two nested loops and the technique of dividing the row and column by 3 to perform a lookup to determine whether duplicate numbers exist in the same sub-grid (guideline 2). Additionally, because the model was explicitly told the test command, Grok was able to execute it in one shot rather than making many failed attempts (guideline 1). 
 
 ---
 
@@ -290,7 +290,7 @@ def problem_B(records):
 ```
 
 **Analysis**
-The good example makes use of guideline 1, i.e. it used the provided library. The bad example does not use the library, as a result it produced a giant block of duplicate code.
+The good example makes use of guideline 3, i.e. it used the provided library. The bad example does not use the library, as a result it produced a giant block of duplicate code.
 
 ---
 
@@ -458,7 +458,7 @@ def problem_C(text: str) -> str:
 
 **Analysis**
 
-The 'bad' example fails to pass the test cases, since the output format is underspecified (output requires a trailing '\n'). In the bad example, preprocessing, validation, and rendering are mixed inside a single loop, making the control flow harder to follow and maintain. In contrast, the good example enforces a clear input–process–output structure, making use of helpers _parse_and_validate and normalize.
+The 'bad' example fails to pass the test cases, since the output format is underspecified (output requires a trailing '\n'). In the bad example, preprocessing, validation, and rendering are mixed inside a single loop, making the control flow harder to follow and maintain. In contrast, the good example enforces a clear input–process–output structure, making use of helpers _parse_and_validate and normalize (guideline 2). It also specifies the i.o. format, so the code passes the test case (guideline 4)
 
 ### Problem D: Building a personal website
 
@@ -492,6 +492,6 @@ Prompt4: Use a picture of a rabbit instead of the human.
 Copilot: ![Good example](good.png)
 
 **Analysis**
-The good example makes use of guidelines 1 and 4. As a result, the final website is much more compelling visually and in terms of content. This is because a solid architectural foundation was established with guideline 1 (use flask), and the user iterated with Copilot to create the website, rather than creating it in a single prompt (guideline 4).
+The good example makes use of guidelines 3 and 5. As a result, the final website is much more compelling visually and in terms of content. This is because a solid architectural foundation was established with guideline 3 (use flask), and the user iterated with Copilot to create the website, rather than creating it in a single prompt (guideline 5).
 
 ---
