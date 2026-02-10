@@ -290,7 +290,7 @@ def problem_B(records):
 ```
 
 **Analysis**
-The good example makes use of guideline 3, i.e. it used the provided library. The bad example does not use the library, as a result it produced a giant block of duplicate code.
+The good example makes use of guideline 3, i.e. it used the library that was in the repository. The bad example does not use the library, as a result it produced a giant block of duplicate code.
 
 ---
 
