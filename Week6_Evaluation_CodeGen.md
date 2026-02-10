@@ -25,6 +25,7 @@ Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exerc
 
 Prompt: Write Python code for the ‘validate_rows’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no row contains duplicate numbers and ‘False’ if at least one does.
 
+Copilot:
 ```
 def validate_rows(self):
         for row in self.grid:
@@ -36,12 +37,27 @@ def validate_rows(self):
                     seen.add(num)
         return True
 ```
+
+Copilot: Ran terminal command: cd "c:\Users\xmanp\Desktop\LLMs for Software Engineering\CS846-CodeGen-Exercises"; python -m pytest tests/test_problem_A.py -v
+
+Copilot: Ran terminal command: "C:/Users/xmanp/Desktop/LLMs for Software Engineering/CS846-CodeGen-Exercises/.venv/Scripts/python.exe" -m pytest tests/test_problem_A.py -v
+
+Copilot: Ran terminal command: & "C:/Users/xmanp/Desktop/LLMs for Software Engineering/CS846-CodeGen-Exercises/.venv/Scripts/python.exe" -m pytest tests/test_problem_A.py -v
+
+Copilot: Installing pytest in Python 3.12.3 (.venv)
+
+Copilot: Ran terminal command: & "C:/Users/xmanp/Desktop/LLMs for Software Engineering/CS846-CodeGen-Exercises/.venv/Scripts/python.exe" -m unittest tests.test_problem_A
+
+Copilot: ...
+
+(you get the idea, Copilot continuously fails to run the test command)
 
 **Good example**
 Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
 Prompt: Write Python code for the ‘validate_rows’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no row contains duplicate numbers and ‘False’ if at least one does. When you are finished, please run tests using the test command ‘python3 -m unittest tests.test_problem_A’.
 
+Copilot:
 ```
 def validate_rows(self):
         for row in self.grid:
@@ -54,8 +70,12 @@ def validate_rows(self):
         return True
 ```
 
+Copilot: Ran terminal command: python3 -m unittest tests.test_problem_A
+
+Copilot: The `validate_rows` method has been successfully implemented. The test results show that all 5 tests for `validate_rows` passed (the dots in the output), while the other methods (`validate_cols` and `validate_boxes`) are not yet implemented, causing the remaining failures. The implementation correctly checks each row for duplicate non-empty values, returning `True` if no duplicates are found and `False` otherwise.
+
 **Analysis**
-Both the “Bad” and “Good” examples produce identical code, but in the chat window, it repeatedly attempts to call a test command (even though the prompt doesn’t mention tests) until it gets it right. With the “Good” example, Grok executes the test command flawlessly the first time (guideline 1).
+Both the “Bad” and “Good” examples produce identical code, but in the bad example, Copilot repeatedly attempts to call a test command (even though the prompt doesn’t mention tests) and continuously gets it wrong. In the “Good” example, Copilot has been given the command, so it executes the test command flawlessly one its first try (guideline 1).
 
 ---
 
@@ -71,6 +91,7 @@ Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exerc
 
 Prompt: Write Python code for the ‘validate_cols’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no column contains duplicate numbers and ‘False’ if at least one does.
 
+Copilot:
 ```
 def validate_cols(self):
         for col in range(9):
@@ -83,12 +104,26 @@ def validate_cols(self):
                     seen.add(num)
         return True
 ```
+Copilot: Ran terminal command: cd "c:\Users\xmanp\Desktop\LLMs for Software Engineering\CS846-CodeGen-Exercises"; python -m pytest tests/test_problem_A.py -v
+
+Copilot: Ran terminal command: "C:/Users/xmanp/Desktop/LLMs for Software Engineering/CS846-CodeGen-Exercises/.venv/Scripts/python.exe" -m pytest tests/test_problem_A.py -v
+
+Copilot: Ran terminal command: & "C:/Users/xmanp/Desktop/LLMs for Software Engineering/CS846-CodeGen-Exercises/.venv/Scripts/python.exe" -m pytest tests/test_problem_A.py -v
+
+Copilot: Installing pytest in Python 3.12.3 (.venv)
+
+Copilot: Ran terminal command: & "C:/Users/xmanp/Desktop/LLMs for Software Engineering/CS846-CodeGen-Exercises/.venv/Scripts/python.exe" -m unittest tests.test_problem_A
+
+Copilot: ...
+
+(you get the idea, Copilot continuously fails to run the test command)
 
 **Good example**
 Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
 Prompt: Write Python code for the ‘validate_cols’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no column contains duplicate numbers and ‘False’ if at least one does. When you are finished, please run tests using the test command ‘python3 -m unittest tests.test_problem_A’.
 
+Copilot:
 ```
 def validate_cols(self):
         for col in range(9):
@@ -102,12 +137,15 @@ def validate_cols(self):
         return True
 ```
 
+Copilot: Ran terminal command: py -m unittest tests.test_problem_A The `validate_cols` method has been successfully implemented. It now correctly returns `True` if no column contains duplicate numbers (ignoring empty cells marked with "*") and `False` if at least one column does. The test results show that all tests for `validate_rows` and `validate_cols` are now passing (the dots in the output), with only the `validate_boxes` method still needing implementation. The 5 remaining failures are for the box validation tests.
+
 **Analysis**
-Both the “Bad” and “Good” examples produce very similar code, but in the chat window, Grok repeatedly attempts to run a test command (even though the prompt doesn’t mention tests) until it succeeds. With the “Good” example, Grok executes the test command flawlessly the first time (guideline 1).
+Both the “Bad” and “Good” examples produce identical code, but in the bad example, Copilot repeatedly attempts to call a test command (even though the prompt doesn’t mention tests) and continuously gets it wrong. In the “Good” example, Copilot has been given the command, so it executes the test command flawlessly one its first try (guideline 1).
 
 ---
 
-### Problem B_3: Validate sub-grids
+### Problem A_3: Validate sub-grids
+Note: The previous issue with the test command applies to problems A_1 through C; however, from this point onward, we omit it from our "bad" examples, as the focus shifts to other guidelines and we don't want to be repetitive.
 
 **Evaluation Description:**  
 * The code should return True in the validate_boxes method if all sub-grids are valid. False otherwise
@@ -121,6 +159,7 @@ Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exerc
 
 Prompt: Write Python code for the ‘validate_boxes’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no 3x3 sub-grid contains duplicate numbers and ‘False’ if at least one does.
 
+Copilot:
 ```
 def validate_boxes(self):
         for box_row in range(0, 9, 3):
@@ -144,6 +183,7 @@ You must also meet the following 2 conditions:
 - Use only two nested loops in the method overall. 
 - Divide each row and column by 3 to check which sub-grid you are in
 
+Copilot:
 ```
 def validate_boxes(self):
         boxes = [[set() for _ in range(3)] for _ in range(3)]
@@ -160,7 +200,7 @@ def validate_boxes(self):
 ```
 
 **Analysis**
-In the “Bad” example, Grok produces code with four nested loops instead of two. If the prompter knows about this problem ahead of time, they can leverage that knowledge to get the model to output a solution using only two nested loops and the technique of dividing the row and column by 3 to perform a lookup to determine whether duplicate numbers exist in the same sub-grid (guideline 2). Additionally, because the model was explicitly told the test command, Grok was able to execute it in one shot rather than making many failed attempts (guideline 1). 
+In the “Bad” example, Copilot produces code with four nested loops instead of two. If the prompter knows about this problem ahead of time, they can leverage that knowledge to get the model to output a solution using only two nested loops and the technique of dividing the row and column by 3 to perform a lookup to determine whether duplicate numbers exist in the same sub-grid (guideline 2). Additionally, because the model was explicitly told the test command, Copilot was able to execute it in one shot rather than making many failed attempts (guideline 1). 
 
 ---
 
@@ -178,6 +218,7 @@ Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exerc
 
 Prompt: Solve problem B 
 
+Copilot:
 ```
 def problem_B(records):
     # Validate input
@@ -264,7 +305,9 @@ def problem_B(records):
 Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
 Prompt: Solve problem B by making use of the examlib library under misc -> src -> library.py
+run the command py -m unittest tests.test_problem_B to test your solution.
 
+Copilot:
 ```
 from problems.misc.src import library as examlib
 
@@ -306,11 +349,9 @@ The good example makes use of guideline 3, i.e. it used the library that was in 
 **Bad example**
 Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
-Prompt:
+Prompt: implement a INI Config Validator + Normalizer at problem_C.
 
-implement a INI Config Validator + Normalizer at problem_C.
-
-Code:
+Copilot:
 ```
 def problem_C(text: str) -> str:
     lines = text.splitlines()
@@ -383,7 +424,7 @@ def problem_C(text: str) -> str:
 Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
 Prompt:
-```
+
 Solve Problem C. Implement problem_C(text: str) -> str.
 
 Input: text is a single newline-separated string representing a configuration file containing section headers [section] and key–value lines key=value, possibly with blank lines and comments starting with # or ;.
@@ -393,9 +434,9 @@ Output: return a normalized configuration string in which sections are sorted al
 There should be two helper methods, _parse_and_validate as well as normalize.
 
 run the command py -m unittest tests.test_problem_C to test your solution.
-```
 
-Code:
+
+Copilot:
 ```
 import re
 

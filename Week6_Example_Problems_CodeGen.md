@@ -23,7 +23,7 @@ Please select **Grok Code Fast 1**
 ### Problem A: Sudoku Puzzle Validator (15 minutes)
 
 **Description:**  
-IMPORTANT: For problem A, pay close attention to how Copilot tries to test its own output.
+IMPORTANT: For problem A, pay close attention to how Copilot tries to test its own output. Allow Copilot to run the tests.
 
 A [Sudoku puzzle](https://en.wikipedia.org/wiki/Sudoku) is a puzzle in which a user is given a 9x9 grid partially filled in with numbers 1-9. To complete the puzzle, the user must fill in each row, column, and 3x3 sub-square so that each contains exactly one number from 1-9. For a partially-completed puzzle, each row, column, and 3x3 sub-grid must contain at most one instance of numbers 1-9. In our case, an empty square will be represented by the character ‘*’. Your job is to write Python code to validate if a given Sudoku puzzle is valid or not.
 
