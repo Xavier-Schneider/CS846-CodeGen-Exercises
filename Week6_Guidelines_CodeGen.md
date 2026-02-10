@@ -107,7 +107,7 @@ Problem A_2:
 
 Problem A_3:
 * Guideline 1 (hint: same as above)
-* Guideline 2 (hint: this method only needs 2 nested loops - you can divide each row and column by 3 to check which sub-grid you are in)
+* Guideline 2 (hint: - Use only two nested loops in the method overall. - Divide each row and column by 3 to check which sub-grid you are in)
 
 Problem B:
 * Guideline 1 (hint: same as above)

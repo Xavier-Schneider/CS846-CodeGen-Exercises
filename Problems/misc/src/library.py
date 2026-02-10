@@ -1,5 +1,6 @@
 # examstats.py
-# Import this file with: from problems.misc.src import library as examlib
+# Import this file with: from Problems.misc.src import library as examlib
+# You must use this exact path
 
 from __future__ import annotations
 
