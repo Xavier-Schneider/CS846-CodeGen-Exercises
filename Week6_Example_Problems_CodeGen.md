@@ -10,13 +10,11 @@ Throughout these exercises you will be asked to run unit tests. For example, to 
 ```
 python3 -m unittest tests.test_problem_A
 ```
-Alternatively, you may have installed the python as: 'py' or 'python' instead of 'python3'. Make sure to adjust your commands accordingly.
+Alternatively, you may have installed python as: 'py' or 'python' instead of 'python3'. Make sure to adjust your commands accordingly.
 
-**GitHub Repository:**
-https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
+**GitHub Repository:** https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
-**Model:**  
-Please select **Grok Code Fast 1**
+**Model:** Please select **Grok Code Fast 1**
 
 ## 1. Example Problems
 
@@ -37,7 +35,6 @@ You should see 15 failing tests. If you see 15 failing tests, you can move on to
 
 **Starter Code:**  
 https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/Problems/problem_A.py
-https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/tests/test_problem_A.py
 
 ### Problem A_1: Validate rows
 
@@ -85,7 +82,6 @@ records = [
     {"name": "Eve", "score": 52, "weight": 1.0},
 ]
 
-------------------------------------------------------------
 Complete the function to compute the following statistics:
 
 1. Weighted Average Score
@@ -113,7 +109,6 @@ Complete the function to compute the following statistics:
        * C: score >= 50 and < 60
        * F: score < 50
 
-------------------------------------------------------------
 Data validation requirements:
 
 - The records iterable must not be None or empty
@@ -125,7 +120,6 @@ Data validation requirements:
 If invalid data is encountered, raise an error with a clear,
 descriptive message explaining the problem.
 
-------------------------------------------------------------
 Final output:
 
 Produce a summary dictionary with the following keys:
@@ -149,8 +143,9 @@ Example output shape:
 **Starter Code:**
 https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/blob/main/Problems/problem_B.py
 
-**Test**
+**Test:**
 Test your solution with:
+
 ```
 python3 -m unittest tests.test_problem_B
 ```
@@ -166,7 +161,7 @@ Your goal is to write Python code that takes an INI config string and outputs a 
 **Starter Code:**
 https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/Problems/problem_C.py
 
-**Test**
+**Test:**
 Test your solution with:
 
 ```
@@ -182,3 +177,4 @@ Build a website for a graduate student named [Name] who goes to the University o
 
 ---
 
+These Example problems were created with in collaboration with GPT 5.2

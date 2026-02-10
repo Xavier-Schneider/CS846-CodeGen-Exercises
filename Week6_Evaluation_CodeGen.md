@@ -2,7 +2,6 @@
 
 **Authors:** Xavier Schneider, Greg French, Max Ku 
 
-
 ## 1. Evaluation Criteria
 
 * The code should pass the automated tests (correctness)
@@ -20,7 +19,8 @@
 * The code should pass the first 5 automated tests (correctness)
 * The agent should correctly, and promptly execute the test command corresponding to problem A.
 
-**Bad example**
+**Bad example:**
+
 Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
 Prompt: Write Python code for the ‘validate_rows’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no row contains duplicate numbers and ‘False’ if at least one does.
@@ -52,7 +52,8 @@ Copilot: ...
 
 (you get the idea, Copilot continuously fails to run the test command)
 
-**Good example**
+**Good example:**
+
 Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
 Prompt: Write Python code for the ‘validate_rows’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no row contains duplicate numbers and ‘False’ if at least one does. When you are finished, please run tests using the test command ‘python3 -m unittest tests.test_problem_A’.
@@ -74,7 +75,8 @@ Copilot: Ran terminal command: python3 -m unittest tests.test_problem_A
 
 Copilot: The `validate_rows` method has been successfully implemented. The test results show that all 5 tests for `validate_rows` passed (the dots in the output), while the other methods (`validate_cols` and `validate_boxes`) are not yet implemented, causing the remaining failures. The implementation correctly checks each row for duplicate non-empty values, returning `True` if no duplicates are found and `False` otherwise.
 
-**Analysis**
+**Analysis:**
+
 Both the “Bad” and “Good” examples produce identical code, but in the bad example, Copilot repeatedly attempts to call a test command (even though the prompt doesn’t mention tests) and continuously gets it wrong. In the “Good” example, Copilot has been given the command, so it executes the test command flawlessly one its first try (guideline 1).
 
 ---
@@ -86,7 +88,8 @@ Both the “Bad” and “Good” examples produce identical code, but in the ba
 * The code should pass the next 5 automated tests (correctness)
 * The agent should correctly, and promptly execute the test command corresponding to problem A.
 
-**Bad example**
+**Bad example:**
+
 Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
 Prompt: Write Python code for the ‘validate_cols’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no column contains duplicate numbers and ‘False’ if at least one does.
@@ -118,7 +121,8 @@ Copilot: ...
 
 (you get the idea, Copilot continuously fails to run the test command)
 
-**Good example**
+**Good example:**
+
 Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
 Prompt: Write Python code for the ‘validate_cols’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no column contains duplicate numbers and ‘False’ if at least one does. When you are finished, please run tests using the test command ‘python3 -m unittest tests.test_problem_A’.
@@ -139,7 +143,8 @@ def validate_cols(self):
 
 Copilot: Ran terminal command: py -m unittest tests.test_problem_A The `validate_cols` method has been successfully implemented. It now correctly returns `True` if no column contains duplicate numbers (ignoring empty cells marked with "*") and `False` if at least one column does. The test results show that all tests for `validate_rows` and `validate_cols` are now passing (the dots in the output), with only the `validate_boxes` method still needing implementation. The 5 remaining failures are for the box validation tests.
 
-**Analysis**
+**Analysis:**
+
 Both the “Bad” and “Good” examples produce identical code, but in the bad example, Copilot repeatedly attempts to call a test command (even though the prompt doesn’t mention tests) and continuously gets it wrong. In the “Good” example, Copilot has been given the command, so it executes the test command flawlessly one its first try (guideline 1).
 
 ---
@@ -154,7 +159,8 @@ Note: The previous issue with the test command applies to problems A_1 through C
 * The code should be efficient
 * The code should be readable
 
-**Bad example**
+**Bad example:**
+
 Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
 Prompt: Write Python code for the ‘validate_boxes’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no 3x3 sub-grid contains duplicate numbers and ‘False’ if at least one does.
@@ -175,7 +181,8 @@ def validate_boxes(self):
         return True
 ```
 
-**Good example**
+**Good example:**
+
 Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
 Write Python code for the ‘validate_boxes’ method in the SudokuPuzzleValidator class such that it returns ‘True’ if no 3x3 sub-grid contains duplicate numbers and ‘False’ if at least one does. When you are finished, please run tests using the test command ‘python3 -m unittest tests.test_problem_A’.
@@ -199,7 +206,8 @@ def validate_boxes(self):
         return True
 ```
 
-**Analysis**
+**Analysis:**
+
 In the “Bad” example, Copilot produces code with four nested loops instead of two. If the prompter knows about this problem ahead of time, they can leverage that knowledge to get the model to output a solution using only two nested loops and the technique of dividing the row and column by 3 to perform a lookup to determine whether duplicate numbers exist in the same sub-grid (guideline 2). Additionally, because the model was explicitly told the test command, Copilot was able to execute it in one shot rather than making many failed attempts (guideline 1). 
 
 ---
@@ -212,7 +220,7 @@ In the “Bad” example, Copilot produces code with four nested loops instead o
 * The code should be short (no more than 30 lines)
 * The code should pass the automated tests (correctness)
 
-**Bad example**
+**Bad example:**
 
 Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
@@ -300,7 +308,7 @@ def problem_B(records):
     }
 ```
 
-**Good example**
+**Good example:**
 
 Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
@@ -332,7 +340,8 @@ def problem_B(records):
     }
 ```
 
-**Analysis**
+**Analysis:**
+
 The good example makes use of guideline 3, i.e. it used the library that was in the repository. The bad example does not use the library, as a result it produced a giant block of duplicate code.
 
 ---
@@ -346,7 +355,8 @@ The good example makes use of guideline 3, i.e. it used the library that was in 
 * The code should have clear control flow
 
 
-**Bad example**
+**Bad example:**
+
 Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
 Prompt: implement a INI Config Validator + Normalizer at problem_C.
@@ -420,7 +430,8 @@ def problem_C(text: str) -> str:
     return '\n'.join(output_lines)
 ```
 
-**Good example**
+**Good example:**
+
 Context (full git repo): https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
 
 Prompt:
@@ -497,9 +508,9 @@ def problem_C(text: str) -> str:
     return normalize(parsed)
 ```
 
-**Analysis**
+**Analysis:**
 
-The 'bad' example fails to pass the test cases, since the output format is underspecified (output requires a trailing '\n'). In the bad example, preprocessing, validation, and rendering are mixed inside a single loop, making the control flow harder to follow and maintain. In contrast, the good example enforces a clear input–process–output structure, making use of helpers _parse_and_validate and normalize (guideline 2). It also specifies the i.o. format, so the code passes the test case (guideline 4)
+The 'bad' example fails to pass the test cases, since the output format is underspecified (output requires a trailing '\n'). In the bad example, preprocessing, validation, and rendering are mixed inside a single loop, making the control flow harder to follow and maintain. In contrast, the good example enforces a clear input–process–output structure, making use of helpers _parse_and_validate and normalize (guideline 2). It also specifies the i.o. format, so the code passes the test case (guideline 4).
 
 ### Problem D: Building a personal website
 
@@ -510,7 +521,7 @@ Note: In the following examples Copilot is instructed to create a website. Rathe
 * The website is compelling (looks good)
 * The website is functional (it has the elements of a graduate student website - publications, socials, etc.)
 
-**Bad Example**
+**Bad Example:**
 
 Context: (No context given - empty folder)
 
@@ -518,7 +529,7 @@ Prompt: build a website for a graduate student named Xavier Schneider who goes t
 
 Copilot: ![Bad example](bad.png)
 
-**Good Example**
+**Good Example:**
 
 Context: (No context given - empty folder)
 
@@ -532,7 +543,10 @@ Prompt4: Use a picture of a rabbit instead of the human.
 
 Copilot: ![Good example](good.png)
 
-**Analysis**
+**Analysis:**
+
 The good example makes use of guidelines 3 and 5. As a result, the final website is much more compelling visually and in terms of content. This is because a solid architectural foundation was established with guideline 3 (use flask), and the user iterated with Copilot to create the website, rather than creating it in a single prompt (guideline 5).
 
 ---
+
+These Evalutations were created in collaboration with GPT 5.2
