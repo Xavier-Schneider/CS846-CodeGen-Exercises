@@ -13,7 +13,7 @@
 - OpenSpec: A Spec-Driven Workflow for AI Coding Assistants \[9\]  
 
 **Update Preamble**
-In general, the feedback indicates that our existing guidelines are well justified, but it also highlights a few edge cases where they are not fully sufficient. In response, we are introducing two new guidelines (6, 7) to address those cases, as well as updates to guideline 4. 
+In general, the feedback indicates that our existing guidelines are well justified. Rather than revealing broad failures in those guidelines, the feedback highlights a number of edge cases where our existing guidelines are valid, but are not sufficient on their own to solve the problem. In response, we are introducing two new guidelines (6 and 7) to address those cases, as well as updates to guidelines 3 and 4. We validate our new guidelines on an a new problem (problem E).
 
 ## 1. Guidelines For Code Generation / Planning
 
@@ -53,10 +53,22 @@ Write a function to search for a number in the list.
 
 ### Guideline 3: Specify required external libraries/packages and their purpose.
 **Description:**  
-When you want Copilot to generate code that relies on non-standard libraries, explicitly specify which packages to use and what each is for, so the generated code imports and uses them correctly \[7\]. 
+When you want Copilot to generate code that relies on non-standard libraries, explicitly specify which packages to use and what each is for, so the generated code imports and uses them correctly \[7\].
+
+Include the following if known and relevant:
+1. Package name and explicit version constraint (or minimum version).
+2. Intended purpose and which APIs/features to use.
+3. Classification: runtime, test, or dev dependency.
+4. Platform/hardware constraints (OS, CPU/GPU).
+5. Expected data scale and memory/performance limits.
+6. Preferred alternatives and a rule for when to switch.
+7. Install command(s) and how to declare the dependency (requirements.txt / pyproject / environment.yml).
+8. A minimal usage snippet or expected function signature.
+
+If multiple libraries are acceptable, state the preferred one and a simple threshold (e.g., file size) for switching to an alternative.
 
 **Reasoning:**  
-When requirements are vague, LLMs may omit imports, or implement inefficient solutions. \[7\] found that explicitly naming dependencies helps generate more accurate and compatible code by reducing ambiguity and guiding the model toward the intended implementation approach.
+When requirements are vague, LLMs may omit imports, or implement inefficient solutions. \[7\] found that explicitly naming dependencies helps generate more accurate and compatible code by reducing ambiguity and guiding the model toward the intended implementation approach. By providing detailed library specifications, LLMs generate code that accounts for scale, compatibility, and alternatives, avoiding failures like OOM on large data and ensuring production-ready outputs.
 
 **Good Example:**
 "Use NumPy for numerical array operations" or "use pandas for tabular data manipulation".
@@ -64,9 +76,15 @@ When requirements are vague, LLMs may omit imports, or implement inefficient sol
 **Bad Example:**
 "Write code that computes the sum of each column in a csv."
 
+**Update:**
+Feedback pointed out that the previous description of this guideline was overly broad. In many cases, the LLM requires more information than simply "use this library to do x". Instead, specifying what library functions should be used, what version should be used, and performance expectations may be necessary. 
+
+> This guideline update was recommended by group 8
+
+
 ---
 
-### Guideline 4:  Specify the input type and output format.
+### Guideline 4 (Updated):  Specify the input type and output format.
 **Description:**
 Explicitly specify the function's input types, output type, and the exact output format and constraints, including representation details such as value ranges, structure, and whether the function should return or print the result. For code-generation tasks, ambiguity about these aspects can lead to implementations that are logically correct but incompatible with the expected interface or tests \[7\].
 
@@ -86,7 +104,7 @@ The output must be a single float value."
 **Update**
 This guideline was updated to address feedback that specifying only the input and output types is insufficient. The revised version now also requires explicitly defining the output representation, behavioral contract (return vs. print), and value constraints (e.g., ranges or edge-case handling). These additions help prevent cases where the generated code produces structurally correct but incompatible outputs, such as returning dictionaries instead of scalar values or producing results outside the expected range.
 
-> The updated guideline addressing issues identified in the feedback from groups 2, 3, 6.
+> The updated guideline addresses issues identified in the feedback from groups 2, 3, 6.
 
 ---
 
@@ -106,6 +124,31 @@ Iteration 4: Add integration tests and handle edge cases.
 
 **Bad Example:**
 In one step, generate the full architecture, implementation, tests, documentation, and optimizations for the entire system.
+
+---
+
+### Guideline 6 (New): Plan first, implement later
+**Description:**  
+Before making changes, explicitly ask the LLM to inspect the relevant code, summarize what it intends to do, and identify the files, functions, or components it expects to touch. Require it to present a short implementation plan first, then proceed with the edits only after that plan is established.
+
+**Reasoning:**  
+Without an explicit planning step, the LLM may jump into editing too early, make unnecessary changes, or miss dependencies between parts of the codebase. A brief plan improves accuracy, makes the workflow easier to review, and reduces the chance of rework caused by misunderstandings.
+
+**Good Example:**  
+"Before writing any code, inspect the authentication flow and give me a short plan.  
+Your plan should include:  
+1. Which files you expect to modify  
+2. What each change will do  
+3. Any assumptions or risks  
+Once you’ve written the plan, implement it step by step. After coding, summarize exactly what changed."
+
+**Bad Example:**  
+"Add the new authentication behavior and update whatever is needed."
+
+**Update**
+This guideline was added to address a common thread of criticism: our existing guidelines target the generation phase of LLM prompting, they do not address the pre-generation phase. By planning with the LLM first, we can expose false assumptions before they become problems.
+
+> This guideline was recommended by group 4
 
 ---
 
@@ -133,6 +176,9 @@ Problem C:
 Problem D:
 * Guideline 3 (hint: flask is a simple python module for deploying websites), (hint: here are some great graduate student websites: https://kuwingfung.github.io/, https://benjaminschneider.ca/ and Copilot can access the internet, so... you have permission to give them to Copilot as examples)
 * Guideline 5 (hint: don't ask Copilot to do the previous 2 steps at once!)
+
+Problem E:
+* Guideline 6
 
 ## 2. References
 

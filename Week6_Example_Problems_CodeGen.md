@@ -179,4 +179,30 @@ Build a website for a graduate student named [Name] who goes to the University o
 
 ---
 
+### Problem E: Name cleaner
+
+**Task Description:**  
+Write a Python function called clean_names(names).
+The function should take a list of names and return a cleaned-up version of the list.
+Requirements:
+- Remove extra spaces from each name.
+- Make the formatting consistent.
+- Avoid duplicates.
+- Ignore invalid values.
+- Return the cleaned names.
+
+**Update**
+This works well as an example because the LLM has to make assumptions, such as:
+
+* whether "formatting consistent" means title case, lowercase, or preserving original case
+* whether duplicates are case-sensitive ("alice" vs "Alice")
+* what counts as an invalid value (None, empty string, numbers, whitespace-only strings)
+* whether order should be preserved
+* whether the function should return a list, set, or sorted list
+* whether internal spacing should be normalized ("Mary Ann")
+
+So without "Plan first, implement later" (guideline 6), the model jumps straight into one arbitrary interpretation and may implement behavior the user did not intend.
+
+Note: The flaw here is not the code that the model generates, instead it is that the model fails to ask for clarification from the user before generating a solution.
+
 These Example problems were created with in collaboration with GPT 5.2
