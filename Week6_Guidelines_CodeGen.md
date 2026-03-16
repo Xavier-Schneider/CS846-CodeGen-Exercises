@@ -83,6 +83,8 @@ The output must be a single float value."
 **Update**
 This guideline was updated to address feedback that specifying only the input and output types is insufficient. The revised version now also requires explicitly defining the output representation, behavioral contract (return vs. print), and value constraints (e.g., ranges or edge-case handling). These additions help prevent cases where the generated code produces structurally correct but incompatible outputs, such as returning dictionaries instead of scalar values or producing results outside the expected range.
 
+> The updated guideline addressing issues identified in the feedback from groups 2, 3, 6.
+
 ---
 
 ### Guideline 5: Work in Short, Iterative Cycles
