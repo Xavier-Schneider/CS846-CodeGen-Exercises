@@ -179,7 +179,7 @@ Build a website for a graduate student named [Name] who goes to the University o
 
 ---
 
-### Problem E: Name cleaner
+### Problem E (new): Name cleaner
 
 **Task Description:**  
 Write a Python function called clean_names(names).
@@ -204,5 +204,7 @@ This works well as an example because the LLM has to make assumptions, such as:
 So without "Plan first, implement later" (guideline 6), the model jumps straight into one arbitrary interpretation and may implement behavior the user did not intend.
 
 Note: The flaw here is not the code that the model generates, instead it is that the model fails to ask for clarification from the user before generating a solution.
+
+You may also apply guideline 7 ("Summarize changes") here, since the summary catchs assumptions such as what "fromatting consistent" means, and the user can determine if the model's interpretation aligns with their expectations.
 
 These Example problems were created with in collaboration with GPT 5.2

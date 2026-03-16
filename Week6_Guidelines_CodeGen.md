@@ -13,38 +13,17 @@
 - OpenSpec: A Spec-Driven Workflow for AI Coding Assistants \[9\]  
 
 **Update Preamble**
-In general, the feedback indicates that our existing guidelines are well justified. Rather than revealing broad failures in those guidelines, the feedback highlights a number of edge cases where our existing guidelines are valid, but are not sufficient on their own to solve the problem. In response, we are introducing two new guidelines (6 and 7) to address those cases, as well as updates to guidelines 1, 3 and 4. We validate our new guidelines on an a new problem (problem E).
+In general, the feedback indicates that our existing guidelines are well justified. Rather than revealing broad failures in those guidelines, the feedback highlights a number of edge cases where our existing guidelines are valid, but are not sufficient on their own to solve the problem. In response, we are introducing two new guidelines (6 and 7) to address those cases, as well as updates to guidelines 1, 3 and 4 to broaden their applicability. We validate our new guidelines on a new problem (problem E) and existing problems.
 
-## 1. Guidelines For Code Generation / Planning
-
-### Guideline 1: Specify any project specific tool and workflow execution mechanics
+### Guideline 1 (Updated): Specify any project-specific tool and workflow execution mechanics in the instructions.md file
 **Description:**  
-Be specific, not just about whether a tool in your workflow should be run, but also about the specific command to run it. If you want the LLM to run a unit test, don’t just tell it to run tests; give it the exact command it should use to run the test \[8\].
+Be specific about the tool in your workflow that should be run. If you want the LLM to run a unit test, don’t just tell it to run tests; specify the exact tool to use (e.g., pytest) \[8\]. Place this instruction in an "instructions.md" file within your repo so that everyone on your software development team can make use of it.
 
 **Reasoning:**  
-If you don’t specify how the LLM should use a tool, it may end up spinning its wheels, making multiple attempts to get it right. It may even give up if, after many attempts, it can’t guess the correct command.
+If you don’t specify how the LLM should use a tool, it may end up spinning its wheels, making multiple attempts to get it right. It may even give up if, after many attempts, it can’t guess the correct command. By providing the tool to the LLM in the prompt, you prevent this problem. Placing this information in an "instructions.md" allows you to share this instruction with other team members, so that, for example, the LLM can run tests on a user's machine without the user needing to know the exact test command ahead of time. It also means you don't have to manually append tool instructions to every prompt.
 
 **Good Example:**
-"From the repo root, run the backend unit tests with:
-poetry run pytest tests/unit -q
-If any tests fail, paste the full failure output and then fix the code so the suite passes.
-After that, run the frontend tests with:
-pnpm -C web test -- --runInBand."
-
-**Bad Example:**
-"Run the tests to make sure everything still works, and fix anything that fails."
-
----
-
-### Guideline 1 (Addendum): Specify any project-specific tool and workflow execution mechanics in the instructions.md file
-**Description:**  
-Be specific about the tool in your workflow that should be run. If you want the LLM to run a unit test, don’t just tell it to run tests; specify the exact tool to use (e.g., pytest). Place this instruction in an ‘instructions.md’ file within your repo so that everyone on your software development team can make use of it.
-
-**Reasoning:**  
-Telling an LLM the exact tool to use, but not necessarily the exact command to use, and placing this information in an ‘instructions.md’ file enables portability with the command, so that, for example, the LLM can run tests on a user's machine without the user needing to know the exact test command ahead of time and give this information to the LLM explicitly.
-
-**Good Example:**
-"After every code change, run the backend unit tests using pytest from the repo root.
+Add to instructions.md: "After every code change, run the backend unit tests using pytest from the repo root.
 If any tests fail, paste the full failure output and then fix the code so the suite passes.
 After that, run the frontend tests using Jest."
 
@@ -52,8 +31,9 @@ After that, run the frontend tests using Jest."
 "Run the tests to make sure everything still works, and fix anything that fails."
 
 **Update**  
-This guideline was updated to address feedback from Group 4, which noted that it doesn't offer portability and only works on a machine where the user knows the exact command to run in advance. If you tell the command to run the test with ‘python3’, but the user instead uses ‘python’ to run Python commands, the command will fail. With this updated guideline, we can place a more general prompt within an ‘instructions.md’ file, and share it with the entire software team working on the project, so that it will work across whatever machine the developer is working on. The one downside of this generality is that an LLM may still have to try running multiple commands until it gets the test command right, and that is why you should use the original guideline if portability is not an issue. If you do need portability, however, this guideline offers a great alternative to the original.
+This guideline was updated to address feedback from Group 4, which noted that it doesn't offer portability and only works when the user knows the exact tool to run in advance, and how to run it. With this updated guideline, we can place a more general prompt within an ‘instructions.md’ file, and share it with the entire software team working on the project.
 
+> This guideline was recommended by group 4
 ---
 
 ### Guideline 2: Add algorithmic details when logic is complex 
@@ -71,7 +51,7 @@ Write a function to search for a number in the list.
 
 ---
 
-### Guideline 3: Specify required external libraries/packages and their purpose.
+### Guideline 3 (Updated): Specify required external libraries/packages and their purpose.
 **Description:**  
 When you want Copilot to generate code that relies on non-standard libraries, explicitly specify which packages to use and what each is for, so the generated code imports and uses them correctly \[7\].
 
@@ -104,7 +84,7 @@ Feedback pointed out that the previous description of this guideline was overly 
 
 ---
 
-### Guideline 4 (Updated):  Specify the input type and output format.
+### Guideline 4 (Updated): Specify the input type and output format.
 **Description:**
 Explicitly specify the function's input types, output type, and the exact output format and constraints, including representation details such as value ranges, structure, and whether the function should return or print the result. For code-generation tasks, ambiguity about these aspects can lead to implementations that are logically correct but incompatible with the expected interface or tests \[7\].
 
@@ -122,21 +102,31 @@ The output must be a single float value."
 "Write a function that processes a list of numbers and gives the result."
 
 **Update**
-This guideline was updated to address feedback that specifying only the input and output types is insufficient. The revised version now also requires explicitly defining the output representation, behavioral contract (return vs. print), and value constraints (e.g., ranges or edge-case handling). These additions help prevent cases where the generated code produces structurally correct but incompatible outputs, such as returning dictionaries instead of scalar values or producing results outside the expected range.
+This guideline was updated to address feedback that specifying only the input and output types is insufficient. The revised version now explicitly requires defining the output representation, behavioral contract (return vs. print), and value constraints (e.g., ranges or edge-case handling). These additions help prevent cases where the generated code produces structurally correct but incompatible outputs, such as producing results outside the expected range.
 
 > The updated guideline addresses issues identified in the feedback from groups 2, 3, 6.
 
 ---
 
-### Guideline 5: Work in short, iterative cycles
+### Guideline 5 (Updated): Work in short, iterative cycles
 
 **Description:**
-Break the interaction into small, repeated steps: generate -> review -> refine -> regenerate, rather than trying to build an entire system in a single prompt \[8\]\[9\].
+Break the interaction into small, repeated steps: generate -> review -> refine -> regenerate, rather than trying to build an entire system in a single prompt \[8\]\[9\]. Ensure that you clarify the constraints of the task prior to iteration, meaning:
+
+1. State what relationships must be preserved
+   - For example: some steps must happen before others, or some values must be computed from the full result set.
+   - You do not need to decide *how* this will be implemented yet.
+
+2. Clarify responsibility boundaries
+   - Decide which parts of the system are allowed to handle which kinds of logic.
+   - This prevents later changes from spreading responsibilities unintentionally.
 
 **Reasoning:**
-Frequent, incremental updates improve accuracy and alignment. Short feedback loops help surface issues earlier, make corrections easier, and give you more control over how the solution evolves.
+Frequent, incremental updates improve accuracy and alignment. Short feedback loops help surface issues earlier, make corrections easier, and give you more control over how the solution evolves. Adding constraints foces the model to pause and think about the rules of the task before changing the code. This made the fixes more focused and helped keep logic in the right place, instead of spreading changes across the codebase. As a result, each step was easier to review, and it was clearer whether a change respected the original requirements rather than just making the code “work.”
 
 **Good Example:**
+Constraint: Use full stack python
+
 Iteration 1: Propose the data model (entities, fields, relationships).
 Iteration 2: Draft the API endpoints + request/response schemas.
 Iteration 3: Implement one endpoint end-to-end.
@@ -144,6 +134,9 @@ Iteration 4: Add integration tests and handle edge cases.
 
 **Bad Example:**
 In one step, generate the full architecture, implementation, tests, documentation, and optimizations for the entire system.
+
+**Update**
+This guideline was updated to address feedback from group 1. They point out that without frontloading constraints, iterating can become tedious as you repeatedly have to correct the model's output. For example, if you want your program to be pure python, but occasionally the model wants to write a subroutine in C. If you don't frontload the python constraint you may have to repeatedly correct this behavior.
 
 ---
 
@@ -172,6 +165,40 @@ This guideline was added to address a common thread of criticism: our existing g
 
 ---
 
+### Guideline 7 (New): Summarize changes
+
+**Description**:
+After the implementation is complete, explicitly ask the LLM to explain what it has done. Require it to summarize the changes it made, identify which files, functions, or components were affected, and explain how those changes address the original request. The review should focus on describing completed work clearly and specifically, rather than continuing to generate new changes.
+
+**Reasoning**:
+If the LLM finishes a task without explaining its completed work, it can be difficult to verify whether it understood the request, whether it changed the right parts of the codebase, or whether it made unnecessary edits. A separate review step improves transparency, makes the result easier to inspect, and helps reveal misunderstandings or incomplete work before the output is accepted.
+
+**Good Example**:
+Prompt 1:
+"Implement the requested change."
+
+Prompt 2:
+"Explain what you changed.
+Your review should include:
+
+Which files you changed
+
+What you changed in each file
+
+How those changes satisfy the request
+
+Any assumptions, limitations, or follow-up work"
+
+**Bad Example**:
+"Implement the requested change"
+
+**Update**
+This guideline is the complement of guideline 6. Guideline 6 seeks to eliminate false pre-generation assumptions, while guideline 7 seeks to address false assumptions that have found their way into generated code. It was added to address the following edge cases: Group 3 identified that Guideline 3 ("Specify required external libraries/packages and their purpose.") partly failed when applied to problem B, since Copilot got the import path wrong even after being pointed to the library, Group 1 points to a failure in Guideline 4 ("Specify the input type and output format") where the prompt did not eliminate a common alternative interpretation of “fixed-window” behavior, other groups had more examples. We find that ammending previous guidelines for every edge case degrades the quality of the guideline, therefore we introduce this new guideline, which can be applied in combination with previous guidelines to mitigate these failures.
+
+Note: There is some overlap between guidline 7 and code review guidelines, but given that the task of "code generation" is broad, we feel it is appropriate.
+
+---
+
 ## 2. Guideline to use in each problem
 
 Problem A_1:
@@ -187,6 +214,7 @@ Problem A_3:
 Problem B:
 * Guideline 1 (hint: same as above)
 * Guideline 3 (hint: look under problems -> misc -> src -> library.py)
+* Guideline 7 (update)
 
 Problem C:
 * Guideline 1 (hint: same as above)
@@ -196,9 +224,11 @@ Problem C:
 Problem D:
 * Guideline 3 (hint: flask is a simple python module for deploying websites), (hint: here are some great graduate student websites: https://kuwingfung.github.io/, https://benjaminschneider.ca/ and Copilot can access the internet, so... you have permission to give them to Copilot as examples)
 * Guideline 5 (hint: don't ask Copilot to do the previous 2 steps at once!)
+* Guideline 6 (update)
+* Guideline 7 (update)
 
-Problem E:
-* Guideline 6
+Problem E (new):
+* Guideline 6 or Guideline 7
 
 ## 2. References
 
