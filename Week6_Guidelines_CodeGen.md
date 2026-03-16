@@ -65,16 +65,23 @@ When requirements are vague, LLMs may omit imports, or implement inefficient sol
 
 ### Guideline 4:  Specify the input type and output format.
 **Description:**
-Explicitly state what the function takes as input and what it must return, including the exact data type and representation \[7\]. For code-generation tasks ambiguity about input/output format may leads to incorrect implementations even if the internal logic is mostly right \[7\].
+Explicitly specify the function's input types, output type, and the exact output format and constraints, including representation details such as value ranges, structure, and whether the function should return or print the result. For code-generation tasks, ambiguity about these aspects can lead to implementations that are logically correct but incompatible with the expected interface or tests \[7\].
 
 **Reasoning:**  
-Without explicit input and output, the LLM may perform an unexpected behavior such as return a dict instead of a string, print output instead of returning, or normalize differently than tests or callers expect.
+Large language models often infer missing interface details. If the prompt only loosely describes the task, the model may return a different data structure (e.g., a dictionary instead of a float), print the result instead of returning it, or produce outputs outside the expected value range. Even when the algorithm is correct, these mismatches can cause downstream failures such as broken tests, invalid API responses, or inconsistent data formats. Specifying the function signature, output structure, and value constraints ensures the generated code aligns with the expected contract.
 
 **Good Example:**
-"Write a Python function average(numbers: list[float]) -> float"
+"Write a Python function average(numbers: list[float]) -> float" that returns the arithmetic mean of the input list.
+
+The function must return a float (do not print the result).
+If the list is empty, return 0.0.
+The output must be a single float value."
 
 **Bad Example:**
 "Write a function that processes a list of numbers and gives the result."
+
+**Update**
+This guideline was updated to address feedback that specifying only the input and output types is insufficient. The revised version now also requires explicitly defining the output representation, behavioral contract (return vs. print), and value constraints (e.g., ranges or edge-case handling). These additions help prevent cases where the generated code produces structurally correct but incompatible outputs, such as returning dictionaries instead of scalar values or producing results outside the expected range.
 
 ---
 
