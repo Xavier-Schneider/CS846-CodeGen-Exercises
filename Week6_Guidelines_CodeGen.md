@@ -13,7 +13,7 @@
 - OpenSpec: A Spec-Driven Workflow for AI Coding Assistants \[9\]  
 
 **Update Preamble**
-In general, the feedback indicates that our existing guidelines are well justified. Rather than revealing broad failures in those guidelines, the feedback highlights a number of edge cases where our existing guidelines are valid, but are not sufficient on their own to solve the problem. In response, we are introducing two new guidelines (6 and 7) to address those cases, as well as updates to guidelines 3 and 4. We validate our new guidelines on an a new problem (problem E).
+In general, the feedback indicates that our existing guidelines are well justified. Rather than revealing broad failures in those guidelines, the feedback highlights a number of edge cases where our existing guidelines are valid, but are not sufficient on their own to solve the problem. In response, we are introducing two new guidelines (6 and 7) to address those cases, as well as updates to guidelines 1, 3 and 4. We validate our new guidelines on an a new problem (problem E).
 
 ## 1. Guidelines For Code Generation / Planning
 
