@@ -12,7 +12,7 @@ python3 -m unittest tests.test_problem_A
 ```
 Alternatively, you may have installed python as: 'py' or 'python' instead of 'python3'. Make sure to adjust your commands accordingly.
 
-**GitHub Repository:** https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises
+**GitHub Repository:** https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/tree/updated_report
 
 **Model:** Please select **Grok Code Fast 1**
 
@@ -34,7 +34,7 @@ python3 -m unittest tests.test_problem_A
 You should see 15 failing tests. If you see 15 failing tests, you can move on to problem A_1. (Every subproblem should fix 5 tests.)
 
 **Starter Code:**  
-https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/Problems/problem_A.py
+https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/tree/updated_report/Problems/problem_A.py
 
 ### Problem A_1: Validate rows
 
@@ -141,7 +141,7 @@ Example output shape:
 }
 
 **Starter Code:**
-https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/blob/main/Problems/problem_B.py
+https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/tree/updated_report/Problems/problem_B.py
 
 **Test:**
 Test your solution with:
@@ -159,7 +159,7 @@ INI files are a common way to store simple configuration using sections and key=
 Your goal is to write Python code that takes an INI config string and outputs a normalized INI string with sorted sections/keys and standardized formatting.
 
 **Starter Code:**
-https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/Problems/problem_C.py
+https://github.com/Xavier-Schneider/CS846-CodeGen-Exercises/tree/updated_report/Problems/problem_C.py
 
 **Test:**
 Test your solution with:

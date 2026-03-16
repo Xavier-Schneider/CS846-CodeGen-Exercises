@@ -1,4 +1,4 @@
-# Week 6 Guidelines: CodeGen / Planning
+# Week 6 Guidelines (Updated): CodeGen / Planning
 
 **Authors:** Xavier Schneider, Greg French, Max Ku  
 **Readings Assigned:**  
@@ -12,9 +12,12 @@
 - How AI-assisted coding will change software engineering: hard truths \[8\]  
 - OpenSpec: A Spec-Driven Workflow for AI Coding Assistants \[9\]  
 
+**Update Preamble**
+In general, the feedback indicates that our existing guidelines are well justified, but it also highlights a few edge cases where they are not fully sufficient. In response, we are introducing two new guidelines (6, 7) to address those cases, as well as updates to guideline 4. 
+
 ## 1. Guidelines For Code Generation / Planning
 
-### Guideline 1: Specify any project specific Tool and Workflow Execution Mechanics
+### Guideline 1: Specify any project specific tool and workflow execution mechanics
 **Description:**  
 Be specific, not just about whether a tool in your workflow should be run, but also about the specific command to run it. If you want the LLM to run a unit test, don’t just tell it to run tests; give it the exact command it should use to run the test \[8\].
 
@@ -87,7 +90,7 @@ This guideline was updated to address feedback that specifying only the input an
 
 ---
 
-### Guideline 5: Work in Short, Iterative Cycles
+### Guideline 5: Work in short, iterative cycles
 
 **Description:**
 Break the interaction into small, repeated steps: generate -> review -> refine -> regenerate, rather than trying to build an entire system in a single prompt \[8\]\[9\].
