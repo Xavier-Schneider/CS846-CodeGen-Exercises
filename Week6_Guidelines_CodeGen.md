@@ -36,6 +36,26 @@ pnpm -C web test -- --runInBand."
 
 ---
 
+### Guideline 1 (Addendum): Specify any project-specific tool and workflow execution mechanics in the instructions.md file
+**Description:**  
+Be specific about the tool in your workflow that should be run. If you want the LLM to run a unit test, don’t just tell it to run tests; specify the exact tool to use (e.g., pytest). Place this instruction in an ‘instructions.md’ file within your repo so that everyone on your software development team can make use of it.
+
+**Reasoning:**  
+Telling an LLM the exact tool to use, but not necessarily the exact command to use, and placing this information in an ‘instructions.md’ file enables portability with the command, so that, for example, the LLM can run tests on a user's machine without the user needing to know the exact test command ahead of time and give this information to the LLM explicitly.
+
+**Good Example:**
+"After every code change, run the backend unit tests using pytest from the repo root.
+If any tests fail, paste the full failure output and then fix the code so the suite passes.
+After that, run the frontend tests using Jest."
+
+**Bad Example:**
+"Run the tests to make sure everything still works, and fix anything that fails."
+
+**Update**  
+This guideline was updated to address feedback from Group 4, which noted that it doesn't offer portability and only works on a machine where the user knows the exact command to run in advance. If you tell the command to run the test with ‘python3’, but the user instead uses ‘python’ to run Python commands, the command will fail. With this updated guideline, we can place a more general prompt within an ‘instructions.md’ file, and share it with the entire software team working on the project, so that it will work across whatever machine the developer is working on. The one downside of this generality is that an LLM may still have to try running multiple commands until it gets the test command right, and that is why you should use the original guideline if portability is not an issue. If you do need portability, however, this guideline offers a great alternative to the original.
+
+---
+
 ### Guideline 2: Add algorithmic details when logic is complex 
 **Description:**  
 If you know additional algorithmic information about a specific problem, make sure to include that information in your prompt. This will help guide the code generation to a cleaner and/or more optimal solution \[7\].
